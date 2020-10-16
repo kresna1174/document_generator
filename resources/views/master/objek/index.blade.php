@@ -1,33 +1,64 @@
 @extends('layout.main')
 @section('title')
-    <h4>Master Objek <a href="javascript:void()" onclick="create()" class="btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></a></h4>
+    <span>Master Objek</span>
+    <a href="javascript:void()" onclick="create()" class="btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></a>
 @endsection
-
 @section('content')
-<table id="table" class="table table-striped table-bordered">
-<thead>
-    <tr>
-        <th class="text-center">id</th>
-        <th class="text-center">objek</th>
-        <th class="text-center">koneksi</th>
-        <th class="text-center">objek tipe</th>
-        <th class="text-center">nama table</th>
-        <th class="text-center">nama kolom</th>
-        <th></th>
-    </tr>
-</thead>
-
-<tbody>
-
-</tbody>
-</table>
-@endsection
+<div class="container mt-5 pb-5">
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <!-- <div class="table-responsive"> -->
+            <table width="100%" id="table" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>objek</th>
+                        <th>koneksi</th>
+                        <th class="text-left">objek tipe</th>
+                        <th class="text-left">nama table</th>
+                        <th class="text-left">nama kolom</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>  
+    </div>
+<!-- </div> -->
+        @endsection
 @section('js')
 <script>
 
     $(function(){
-        get();
-    })
+        datatable();
+    });
+
+    var dataTable;
+    function datatable(){
+      dataTable =  $('#table').DataTable({
+          reponsive:true,
+          processing: true,
+          serverSide: true,
+          ajax: '<?= route('objek.get_data') ?>',
+          columns:[
+              {data: 'id', name: 'id'},
+              {data: 'objek', name: 'objek'},
+              {data: 'koneksi', name: 'koneksi'},
+              {data: 'objek_tipe', name: 'objek_tipe'},
+              {data: 'nama_table', name: 'nama_table'},
+              {data: 'nama_kolom', name: 'nama_kolom'},
+              {data: 'id',width: '150px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
+                  return '<a href="javascript:void()" class="btn btn-info btn-sm" onclick="view('+data+')">view</a> \n\
+                   <a href="javascript:void()" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</a>\n\
+                  <a href="javascript:void()" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</a>';
+              }}
+          ]
+      });
+      
+    }
 
     function get(){
         $.ajax({
@@ -51,7 +82,7 @@
     }
 
     function store(){
-        $('#form_barang .alert').remove();
+        $('#form_objek .alert').remove();
         $.ajax({
             url: '<?= route('objek.store') ?>',
             dataType: 'json',
@@ -59,9 +90,14 @@
             data: $('#form_objek').serialize(),
             success: function(response){
                 if(response.success){
+                    swal({
+                    title: "Create",
+                    text: response.message,
+                    icon: "success",
+                    button: "Oke",
+                    });
                     bootbox.hideAll();
-                    alert(response.message);
-                    get();
+                    dataTable.ajax.reload();
                 }else{
                     alert(response.message);
                 }
@@ -82,14 +118,14 @@
             data: $('#form_objek').serialize(),
             success: function(response){
                 if(response.success){
-                    bootbox.hideAll();
                     swal({
                     title: "Update",
                     text: response.message,
                     icon: "success",
                     button: "Oke",
                     });
-                    get();
+                    bootbox.hideAll();
+                    dataTable.ajax.reload();
                 }else{
                     swal({
                     title: "Update",
@@ -148,7 +184,7 @@
                             icon: "success"
                             });
                         }
-                        get();
+                        dataTable.ajax.reload();
                         });
                     }else{
                         swal(response.message);

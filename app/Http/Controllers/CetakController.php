@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class CetakController extends Controller
 {
     public function index(){
-        return view('cetak.index');
+        $title = 'Cetak';
+        return view('cetak.index', compact('title'));
     }
 }

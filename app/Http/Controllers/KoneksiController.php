@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class KoneksiController extends Controller
 {
     public function index(){
-        return view('master.koneksi.index');
+        $title = 'Master Koneksi';
+        return view('master.koneksi.index', compact('title'));
     }
 }

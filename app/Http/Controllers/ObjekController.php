@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 use App\objek_m;
+use DataTables;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\Cast\Object_;
 
 class ObjekController extends Controller
 {
     public function index(){
-        // $model = Objek_m::all();
+        $title = 'Master Objek';
+        return view('master.objek.index', compact('title'));
+    }
+
+    public function get_data(){
+        return Datatables::of(Objek_m::all())
+        ->make(true);
         return view('master.objek.index');
     }
 

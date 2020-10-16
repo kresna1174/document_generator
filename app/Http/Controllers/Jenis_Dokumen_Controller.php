@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class Jenis_Dokumen_Controller extends Controller
 {
     public function index(){
-        return view('master.jenis_dokumen.index');
+        $title = 'Master Jenis Dokumen';
+        return view('master.jenis_dokumen.index', compact('title'));
     }
 }

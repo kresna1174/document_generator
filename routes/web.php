@@ -39,6 +39,7 @@ Route::group(['prefix' => 'objek'], function(){
     Route::get('delete/{id?}', 'ObjekController@delete')->name('objek.delete');
     Route::get('view/{id?}', 'ObjekController@view')->name('objek.view');
     Route::post('update/{id?}', 'ObjekController@update')->name('objek.update');
+    Route::get('get_data', 'ObjekController@get_data')->name('objek.get_data');
 });
 
 Route::group(['prefix' => 'jenis_dokumen'], function(){
