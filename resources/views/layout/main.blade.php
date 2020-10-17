@@ -11,14 +11,16 @@
   <link rel="icon" href="{!! asset('template') !!}/img/logo.png">
   <link href="{!! asset('template') !!}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="{!! asset('template') !!}/css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet"> -->
   <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="{!! asset('template') !!}/datatable/Button/css/buttons.bootstrap4.min.css" rel="stylesheet">
+  <!-- <link href="{!! asset('template') !!}/datatable/Button/css/buttons.bootstrap.min.css" rel="stylesheet"> -->
   <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.responsive.min.css" rel="stylesheet">
+  <link href="{!! asset('template') !!}/css/style.css" rel="stylesheet">
 
 </head>
 
-<body id="page-top">
+<body>
    <div id="wrapper">
   @include('layout.sidebar')
 <div id="content-wrapper" class="d-flex flex-column">
@@ -28,13 +30,13 @@
         <i class="fa fa-bars"></i>
       </button>
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown no-arrow">
+        <li class="nav-item dropdown no-arrow content">
             <span class="mr-2 d-none d-lg-inline text-gray-600 medium"><i class="fas fa-calendar">&nbsp;</i><?= date('l-F-Y') ?></span>
         </li>
       </ul>
     </nav>
     <div class="container-fluid">
-      <div class="d-sm-flex align-items-center mb-4 mr-auto">
+      <div class="d-sm-flex align-items-center mr-auto content">
         <h1 class="h3 mb-0 text-gray-800">@yield('title')</h1>
       </div>
       <div class="content">

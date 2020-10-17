@@ -24,6 +24,12 @@ Route::group(['prefix' => 'dashboard'], function(){
 
 Route::group(['prefix' => 'koneksi'], function(){
     Route::get('/', 'KoneksiController@index')->name('koneksi');
+    Route::get('create', 'KoneksiController@create')->name('koneksi.create');
+    Route::get('get', 'KoneksiController@get')->name('koneksi.get');
+    Route::post('store', 'KoneksiController@store')->name('koneksi.store');
+    Route::post('update/{id?}', 'KoneksiController@update')->name('koneksi.update');
+    Route::get('edit/{id?}', 'KoneksiController@edit')->name('koneksi.edit');
+    Route::get('delete/{id?}', 'KoneksiController@delete')->name('koneksi.delete');
 });
 
 Route::group(['prefix' => 'start'], function(){

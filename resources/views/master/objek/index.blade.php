@@ -40,6 +40,7 @@
     function datatable(){
       dataTable =  $('#table').DataTable({
           reponsive:true,
+          jQueryUI: true,
           processing: true,
           serverSide: true,
           ajax: '<?= route('objek.get_data') ?>',
