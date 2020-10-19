@@ -4,7 +4,7 @@
 </div>
 <div class="form-group">
     <label>Koneksi</label>
-    {!! Form::text('koneksi', null, ['class' => 'form-control', 'id' => 'koneksi']) !!}
+    {!! Form::select('koneksi', ['model' => $model->koneksi]) !!}
 </div>
 <div class="form-group">
     <label>Objek Tipe</label>

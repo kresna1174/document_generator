@@ -50,6 +50,7 @@ Route::group(['prefix' => 'objek'], function(){
 
 Route::group(['prefix' => 'jenis_dokumen'], function(){
     Route::get('/', 'Jenis_Dokumen_Controller@index')->name('jenis_dokumen');
+    Route::get('get_data', 'Jenis_Dokumen_Controller@get_data')->name('jenis_dokumen.get_data');
 });
 
 Route::group(['prefix' => 'cetak'], function(){

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\objek_m;
+use App\pos_m;
 use DataTables;
 use Illuminate\Http\Request;
 
