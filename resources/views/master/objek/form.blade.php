@@ -4,11 +4,11 @@
 </div>
 <div class="form-group">
     <label>Koneksi</label>
-    {!! Form::select('koneksi', ['model' => $model->koneksi]) !!}
+    {!! Form::select('koneksi', $koneksi, null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
     <label>Objek Tipe</label>
-    {!! Form::text('objek_tipe', null, ['class' => 'form-control', 'id' => 'objek_tipe']) !!}
+    {!! Form::select('objek_tipe', $objek_tipe , null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
     <label>Nama Table</label>

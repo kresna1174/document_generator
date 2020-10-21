@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\objek_m;
-use App\pos_m;
+use App\wf_message;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -12,25 +12,24 @@ class ObjekController extends Controller
         $title = 'Master Objek';
         return view('master.objek.index', compact('title'));
     }
-
+    
     public function get_data(){
-        return Datatables::of(Objek_m::all())
+        return Datatables::of(objek_m::all())
         ->make(true);
         return view('master.objek.index');
     }
 
-    public function get(){
-        $model = Objek_m::all();
-        return view('master.objek.get', compact('model'));
-    }
-
     public function create(){
-        return view('master.objek.create');
+        $koneksi = objek_m::pluck('koneksi');
+        $objek_tipe = objek_m::pluck('objek_tipe');
+        return view('master.objek.create', compact('objek_tipe', 'koneksi'));
     }
 
     public function edit($id){
         $model = Objek_m::findOrFail($id);
-        return view('master.objek.edit', compact('model'));
+        $koneksi = objek_m::pluck('koneksi');
+        $objek_tipe = objek_m::pluck('objek_tipe');
+        return view('master.objek.edit', compact('model', 'koneksi', 'objek_tipe'));
     }
 
     public function view($id){

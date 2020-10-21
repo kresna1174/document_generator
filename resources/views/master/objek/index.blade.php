@@ -11,7 +11,6 @@
             <table width="100%" id="table" class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>id</th>
                         <th>objek</th>
                         <th>koneksi</th>
                         <th class="text-left">objek tipe</th>
@@ -45,7 +44,6 @@
           serverSide: true,
           ajax: '<?= route('objek.get_data') ?>',
           columns:[
-              {data: 'id', name: 'id'},
               {data: 'objek', name: 'objek'},
               {data: 'koneksi', name: 'koneksi'},
               {data: 'objek_tipe', name: 'objek_tipe'},

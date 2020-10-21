@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MailGenerator extends Migration
+class WfMessage extends Migration
 {
     /**
      * Run the migrations.
@@ -21,6 +21,14 @@ class MailGenerator extends Migration
             $table->string('nama_table');
             $table->string('nama_kolom');
         });
+        Schema::create('koneksi', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nama_db');
+            $table->string('username');
+            $table->string('password');
+            $table->string('host');
+            $table->string('port');
+        });
     }
 
     /**
@@ -31,5 +39,6 @@ class MailGenerator extends Migration
     public function down()
     {
         Schema::dropIfExists('objek');
+        Schema::dropIfExists('koneksi');
     }
 }

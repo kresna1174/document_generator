@@ -26,7 +26,7 @@
 </div>
 @endsection
 @section('js')
-    <script>
+    <!-- <script>
     var datatable;
         $(function(){
             datatable = $('#table').DataTable({
@@ -46,5 +46,5 @@
                 ]
             });
         })
-    </script>
+    </script> -->
 @endsection
