@@ -4,6 +4,7 @@
 </div>
 <div class="form-group">
     <label>Koneksi</label>
+    <?php dd($koneksi) ?>
     {!! Form::select('koneksi', $koneksi, null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">

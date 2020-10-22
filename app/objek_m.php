@@ -17,9 +17,9 @@ class objek_m extends Model
     protected $fillable = ['objek', 'koneksi', 'objek_tipe', 'nama_table', 'nama_kolom'];
     public $timestamps = false;
 
-    // public function scope_Koneksi($query){
-    //     $query->select('*')
-    //     ->leftJoin('koneksi', 'koneksi.id', 'objek.id_koneksi');
-    // }
+    public function scope_Koneksi($query){
+        $query->select('*')
+        ->leftJoin('koneksi', 'koneksi.id', 'objek.id');
+    }
 
 }

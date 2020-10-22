@@ -20,8 +20,9 @@ class ObjekController extends Controller
     }
 
     public function create(){
-        $koneksi = objek_m::pluck('koneksi');
-        $objek_tipe = objek_m::pluck('objek_tipe');
+        // $koneksi = objek_m::pluck('koneksi');
+        $koneksi = objek_m::_Koneksi()->pluck('koneksi');
+        $objek_tipe = objek_m::get('objek_tipe');
         return view('master.objek.create', compact('objek_tipe', 'koneksi'));
     }
 
