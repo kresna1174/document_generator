@@ -15,7 +15,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('start');
 });
 
 Route::group(['prefix' => 'dashboard'], function(){
@@ -38,7 +38,6 @@ Route::group(['prefix' => 'start'], function(){
 
 Route::group(['prefix' => 'objek'], function(){
     Route::get('/', 'ObjekController@index')->name('objek');
-    Route::get('get', 'ObjekController@get')->name('objek.get');
     Route::get('create', 'ObjekController@create')->name('objek.create');
     Route::post('store', 'ObjekController@store')->name('objek.store');
     Route::get('edit/{id?}', 'ObjekController@edit')->name('objek.edit');

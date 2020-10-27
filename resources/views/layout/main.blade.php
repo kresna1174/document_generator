@@ -64,9 +64,9 @@
 <script src="{!! asset('template') !!}/datatable/DataTables/js/jquery.dataTables.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/DataTables/js/dataTables.bootstrap.min.js"></script> 
 <script src="{!! asset('template') !!}/datatable/DataTables/js/dataTables.bootstrap4.min.js"></script>
-<script src="{!! asset('template') !!}/datatable/Button/js/buttons.bootstrap.min.js"></script>
-<script src="{!! asset('template') !!}/datatable/Button/js/buttons.bootstrap4.min.js"></script>
-<script src="{!! asset('template') !!}/datatable/Button/js/dataTables.buttons.min.js"></script>
+<!-- <script src="{!! asset('template') !!}/datatable/Button/js/buttons.bootstrap.min.js"></script> -->
+<!-- <script src="{!! asset('template') !!}/datatable/Button/js/buttons.bootstrap4.min.js"></script> -->
+<!-- <script src="{!! asset('template') !!}/datatable/Button/js/dataTables.buttons.min.js"></script> -->
 <script src="{!! asset('template') !!}/datatable/JSZip/jszip.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/pdfmake/pdfmake.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/pdfmake/vfs_fonts.js"></script>

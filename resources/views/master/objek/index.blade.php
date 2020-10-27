@@ -7,7 +7,6 @@
 <div class="container mt-5 pb-5">
     <div class="panel panel-default">
         <div class="panel-body">
-        <!-- <div class="table-responsive"> -->
             <table width="100%" id="table" class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -21,13 +20,12 @@
                 </thead>
                 <tbody>
                     
-                    </tbody>
-                </table>
-            </div>
-        </div>  
-    </div>
-<!-- </div> -->
-        @endsection
+                </tbody>
+            </table>
+        </div>
+    </div>  
+</div>
+@endsection
 @section('js')
 <script>
 
@@ -45,27 +43,17 @@
           ajax: '<?= route('objek.get_data') ?>',
           columns:[
               {data: 'objek', name: 'objek'},
-              {data: 'koneksi', name: 'koneksi'},
+              {data: 'nama_db', name: 'nama_db'},
               {data: 'objek_tipe', name: 'objek_tipe'},
               {data: 'nama_table', name: 'nama_table'},
               {data: 'nama_kolom', name: 'nama_kolom'},
-              {data: 'id',width: '150px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
+              {data: 'id', name:'objek.id', width: '150px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
                   return '<a href="javascript:void()" class="btn btn-info btn-sm" onclick="view('+data+')">view</a> \n\
                    <a href="javascript:void()" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</a>\n\
                   <a href="javascript:void()" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</a>';
               }}
           ]
-      });
-      
-    }
-
-    function get(){
-        $.ajax({
-            url: '<?= route('objek.get') ?>',
-            success: function(response){
-                $('#table tbody').html(response);
-            }
-        });
+      }); 
     }
     
     function create(){

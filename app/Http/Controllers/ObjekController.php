@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\objek_m;
-use App\wf_message;
+use App\koneksi_m;
+use App\objek_tipe_m;
 use DataTables;
+
 use Illuminate\Http\Request;
 
 class ObjekController extends Controller
@@ -14,27 +16,31 @@ class ObjekController extends Controller
     }
     
     public function get_data(){
-        return Datatables::of(objek_m::all())
+        return Datatables::of(objek_m::_koneksi())
         ->make(true);
         return view('master.objek.index');
     }
-
+    
     public function create(){
-        // $koneksi = objek_m::pluck('koneksi');
-        $koneksi = objek_m::_Koneksi()->pluck('koneksi');
-        $objek_tipe = objek_m::get('objek_tipe');
-        return view('master.objek.create', compact('objek_tipe', 'koneksi'));
+        $model = objek_m::_koneksi()->get();
+        $nama_db = koneksi_m::pluck('nama_db', 'id');
+        $nama_db2 = objek_m::_koneksi()->pluck('id', 'id_koneksi');
+        $objek_tipe = objek_tipe_m::pluck('objek_tipe', 'id');
+        $objek_tipe2 = objek_m::_koneksi()->pluck('objek_tipe', 'id');
+        return view('master.objek.create', compact('model', 'objek_tipe', 'objek_tipe2', 'nama_db', 'nama_db2'));
     }
 
     public function edit($id){
-        $model = Objek_m::findOrFail($id);
-        $koneksi = objek_m::pluck('koneksi');
-        $objek_tipe = objek_m::pluck('objek_tipe');
-        return view('master.objek.edit', compact('model', 'koneksi', 'objek_tipe'));
+        // $model = Objek_m::_koneksi()->findOrFail($id);
+        $model = objek_m::_koneksi()->findOrFail($id);
+        $nama_db = koneksi_m::pluck('nama_db', 'id');
+        $objek_tipe = objek_tipe_m::pluck('objek_tipe', 'id');
+        // $model->all = objek_m::_koneksi()->get();
+        return view('master.objek.edit', compact('model', 'objek_tipe', 'nama_db'));
     }
 
     public function view($id){
-        $model = Objek_m::findOrFail($id);
+        $model = Objek_m::_koneksi()->findOrFail($id);
         return view('master.objek.view', compact('model'));
     }
 
@@ -94,8 +100,9 @@ class ObjekController extends Controller
     public function validasi(){
         return [
             'objek' => 'required',
-            'koneksi' => 'required',
-            'objek_tipe' => 'required',
+            'id_koneksi' => 'required',
+            'id_objek_tipe' => 'required',
+            // 'objek_tipe' => 'required',
             'nama_table' => 'required',
             'nama_kolom' => 'required',
         ];
