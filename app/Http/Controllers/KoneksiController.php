@@ -83,7 +83,7 @@ class KoneksiController extends Controller
         return [
             'nama_db' => 'required',
             'username' => 'required',
-            'host' => 'required|numeric',
+            'host' => 'required',
             'port' => 'required|numeric',
         ];
     }
