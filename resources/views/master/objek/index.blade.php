@@ -77,17 +77,24 @@
             data: $('#form_objek').serialize(),
             success: function(response){
                 if(response.success){
-                    swal({
-                    title: "Create",
+                    Swal.fire({
+                    title: 'Store',
                     text: response.message,
-                    icon: "success",
-                    button: "Oke",
+                    icon: 'success',
+                    confirmButtonColor: '#2c91fb',
+                    confirmButtonText: 'Oke'
                     });
-                    bootbox.hideAll();
-                    dataTable.ajax.reload();
                 }else{
-                    alert(response.message);
+                    Swal.fire({
+                    title: 'Error',
+                    text: response.message,
+                    icon: 'error',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Oke'
+                    });
                 }
+                bootbox.hideAll();
+                dataTable.ajax.reload();
             },
             error: function(xhr, ajaxOptions, thrownError){
                 var response = JSON.parse(xhr.responseText);
@@ -105,22 +112,24 @@
             data: $('#form_objek').serialize(),
             success: function(response){
                 if(response.success){
-                    swal({
-                    title: "Update",
+                    Swal.fire({
+                    title: 'Update',
                     text: response.message,
-                    icon: "success",
-                    button: "Oke",
+                    icon: 'success',
+                    confirmButtonColor: '#2c91fb',
+                    confirmButtonText: 'Oke'
                     });
-                    bootbox.hideAll();
-                    dataTable.ajax.reload();
                 }else{
-                    swal({
-                    title: "Update",
+                    Swal.fire({
+                    title: 'Error',
                     text: response.message,
-                    icon: "warning",
-                    button: "Oke",
+                    icon: 'error',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Oke'
                     });
                 }
+                bootbox.hideAll();
+                dataTable.ajax.reload();
             },
             error: function(xhr, ajaxOptions, thrownError){
                 var response = JSON.parse(xhr.responseText);
@@ -137,6 +146,7 @@
                     title: 'edit objek',
                     message: response
                 });
+            get_objek_tipe();
             }
         });
     }
@@ -153,32 +163,121 @@
         })
     }
 
-    function destroy(id){
-        $.ajax({
-            url: '<?= route('objek.delete') ?>/'+id,
-            dataType: 'json',
-            success: function(response){
-                if(response.success){
-                    swal({
-                        title: "Delete Data Ini ?",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                        })
-                        .then((willDelete) => {
-                        if (willDelete) {
-                            swal(response.message, {
-                            icon: "success"
-                            });
-                        }
-                        dataTable.ajax.reload();
-                        });
-                    }else{
-                        swal(response.message);
+    function get_objek_tipe(){
+            var value = $('#objek_tipe').val();
+            var nama_table = $('#nama_table').val();
+            var nama_kolom = $('#nama_kolom').val();
+            if (value == 1 || value == 'table') {
+                var bungkus = $('.bungkus').children();
+                if(bungkus.length == 1){
+                    $('.bungkus').children().remove();
+                }
+                var html_row;
+                    html_row = '<div class="table">';
+                    html_row += '<div class="form-group">';
+                    html_row += '<label>Nama Table</label>';
+                    html_row += '<input type="text" name="nama_table" value="'+nama_table+'" class="form-control">';
+                    html_row += '</div>';
+                    html_row += '<div class="form-group">';
+                    html_row += '<label>Nama Kolom</label>';
+                    html_row += '<input type="text" name="nama_kolom" value="'+nama_kolom+'" class="form-control">';
+                    html_row += '</div>';
+                    html_row += '</div>';
+                    // console.log(html_row);
+
+                $('.form .bungkus').append(html_row);
+            } else if (value == 2 || value == 'query') {
+                var query = $('#query').val();
+                var bungkus = $('.bungkus').children();
+                if(bungkus.length == 1){
+                    $('.bungkus').children().remove();
+                }
+                var html_row;
+                    html_row = '<div class="query">';
+                    html_row += '<div class="form-group">';
+                    html_row += '<label>Query</label>';
+                    html_row += '<textarea name="query" class="form-control">'+query+'</textarea>';
+                    html_row += '</div>';
+                    html_row += '</div>';
+                $('.form .bungkus').append(html_row);
                     }
                 }
+
+    function get_value(){
+            var value = $('#objek_tipe').val();
+            if (value == 1 || value == 'table') {
+                var bungkus = $('.bungkus').children();
+                if(bungkus.length == 1){
+                    $('.bungkus').children().remove();
+                }
+                var html_row;
+                    html_row = '<div class="table">';
+                    html_row += '<div class="form-group">';
+                    html_row += '<label>Nama Table</label>';
+                    html_row += '<input type="text" name="nama_table" value="" class="form-control">';
+                    html_row += '</div>';
+                    html_row += '<div class="form-group">';
+                    html_row += '<label>Nama Kolom</label>';
+                    html_row += '<input type="text" name="nama_kolom" class="form-control">';
+                    html_row += '</div>';
+                    html_row += '</div>';
+
+                $('.form .bungkus').append(html_row);
+            } else if (value == 2 || value == 'query') {
+                var bungkus = $('.bungkus').children();
+                if(bungkus.length == 1){
+                    $('.bungkus').children().remove();
+                }
+                var html_row;
+                    html_row = '<div class="query">';
+                    html_row += '<div class="form-group">';
+                    html_row += '<label>Query</label>';
+                    html_row += '<textarea name="query" class="form-control"></textarea>';
+                    html_row += '</div>';
+                    html_row += '</div>';
+                $('.form .bungkus').append(html_row);
+                    }
+                }
+
+    function destroy(id){
+        Swal.fire({
+                    title: 'Delete',
+                    text: 'Apakah anda yakin akan menghapus data ini?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#929ba1',
+                    confirmButtonText: 'Oke'
+                    }).then((result) => {
+                    if (result.value) {
+                       
+                        $.ajax({
+                            url: '<?= route('objek.delete') ?>/'+id,
+                            success: function(response) {
+                                dataTable.ajax.reload();
+                            Swal.fire({
+                                title : 'Terhapus!',
+                                icon: 'success',
+                                    text: response.message,
+                            })
+                                },
+                                error: function(){
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: response.message,
+                                        type: 'error'
+                                    })
+                                }
+                            });
+                }else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                    'Cancelled',
+                    'Data tidak jadi dihapus',
+                    'error'
+                    )
+                }
             });
-        }
+    }
 
         function errormessage(errors){
             var validations = '<div class="alert alert-danger">';

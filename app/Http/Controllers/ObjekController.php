@@ -5,7 +5,9 @@ use App\objek_m;
 use App\koneksi_m;
 use App\objek_tipe_m;
 use DataTables;
-
+use Exception;
+use App\Http\Controllers\ZipArchive;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class ObjekController extends Controller
@@ -24,18 +26,14 @@ class ObjekController extends Controller
     public function create(){
         $model = objek_m::_koneksi()->get();
         $nama_db = koneksi_m::pluck('nama_db', 'id');
-        $nama_db2 = objek_m::_koneksi()->pluck('id', 'id_koneksi');
         $objek_tipe = objek_tipe_m::pluck('objek_tipe', 'id');
-        $objek_tipe2 = objek_m::_koneksi()->pluck('objek_tipe', 'id');
-        return view('master.objek.create', compact('model', 'objek_tipe', 'objek_tipe2', 'nama_db', 'nama_db2'));
+        return view('master.objek.create', compact('model', 'objek_tipe', 'nama_db'));
     }
 
     public function edit($id){
-        // $model = Objek_m::_koneksi()->findOrFail($id);
         $model = objek_m::_koneksi()->findOrFail($id);
         $nama_db = koneksi_m::pluck('nama_db', 'id');
         $objek_tipe = objek_tipe_m::pluck('objek_tipe', 'id');
-        // $model->all = objek_m::_koneksi()->get();
         return view('master.objek.edit', compact('model', 'objek_tipe', 'nama_db'));
     }
 
@@ -45,7 +43,15 @@ class ObjekController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate(self::validasi());
+        $rules = self::validasi($request->all());
+        $messages = self::validasi_message($request->all());
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return response()->json([
+                'message' => 'error input',
+                'errors' => $validator->messages()
+            ], 400);
+        }
         if(Objek_m::create($request->all())){
             return [
                 'success' => true,
@@ -60,7 +66,15 @@ class ObjekController extends Controller
     }
 
     public function update(Request $request, $id){
-        $request->validate(self::validasi());
+        $rules = self::validasi($request->all());
+        $messages = self::validasi_message($request->all());
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return response()->json([
+                'message' => 'error input',
+                'errors' => $validator->messages()
+            ], 400);
+        }
         $model = Objek_m::findOrFail($id);
         if($model->update($request->all())){
             return [
@@ -97,14 +111,51 @@ class ObjekController extends Controller
         }
     }
 
-    public function validasi(){
+    public function validasi($data){
+        // dd($data);
+        if(isset($data['id_objek_tipe'])){
+            if($data['id_objek_tipe'] == 'table' || $data['id_objek_tipe'] == 1){
+                return [
+                    'objek' => 'required',
+                    'id_koneksi' => 'required',
+                    'nama_table' => 'required',
+                    'nama_kolom' => 'required'
+                ];
+            } else if($data['id_objek_tipe'] == 'query' || $data['id_objek_tipe'] == 2) {
+                return [
+                    'objek' => 'required',
+                    'id_koneksi' => 'required',
+                    'query' => 'required'
+                ];
+            }
+        }
         return [
-            'objek' => 'required',
-            'id_koneksi' => 'required',
-            'id_objek_tipe' => 'required',
-            // 'objek_tipe' => 'required',
-            'nama_table' => 'required',
-            'nama_kolom' => 'required',
-        ];
+        'objek' => 'required',
+        'id_koneksi' => 'required',
+        'id_objek_tipe' => 'required'
+    ];
     }
+    public function validasi_message($data) {        
+        $messages = [];      
+        if(isset($data['id_objek_tipe'])){
+            if($data['id_objek_tipe'] == 'table' || $data['id_objek_tipe'] == 1){
+                    $messages['objek.required'] = 'objek harus di isi';
+                    $messages['id_koneksi.required'] = 'koneksi harus di isi';
+                    $messages['id_objek_tipe.required'] = 'objek tipe harus di isi';
+                    $messages['nama_table.required'] = 'nama table harus di isi';
+                    $messages['nama_kolom.required'] = 'nama kolom harus di isi';
+            } else{
+                $messages['objek.required'] = 'objek harus di isi';
+                $messages['id_koneksi.required'] = 'koneksi harus di isi';
+                $messages['id_objek_tipe.required'] = 'objek tipe harus di isi';
+                $messages['query.required'] = 'query harus di isi';
+            }
+            } else {
+                $messages['objek.required'] = 'objek harus di isi';
+                $messages['id_koneksi.required'] = 'koneksi harus di isi';
+                $messages['id_objek_tipe.required'] = 'objek tipe harus di isi';
+            }
+        return $messages;
+
+    }    
 }
