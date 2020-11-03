@@ -101,7 +101,7 @@ class KoneksiController extends Controller
         return [
             'nama_db' => 'required',
             'username' => 'required',
-            'host' => 'required',
+            'host' => 'required|regex:/0-9./',
             'port' => 'required|numeric',
         ];
     }

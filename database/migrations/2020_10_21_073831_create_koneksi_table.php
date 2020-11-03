@@ -20,8 +20,8 @@ class CreateKoneksiTable extends Migration
             $table->string('password', 64)->nullable();
             $table->string('host', 64);
             $table->string('port', 64);
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
         });
     }
 
