@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\koneksi_m;
+use App\wf_message;
+use Illuminate\Support\Facades\Validator;
 
 class KoneksiController extends Controller
 {
@@ -27,8 +28,17 @@ class KoneksiController extends Controller
     }
 
     public function update(Request $request, $id){
-        $request->validate(self::validasi());
-        $model = koneksi_m::findOrFail($id);
+        $rules = self::validasi($request->all());
+        $messages = self::validasi_message($request->all());
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return response()->json([
+                'message' => 'error input',
+                'errors' => $validator->messages()
+            ], 400);
+        }
+        // $request->validate(self::validasi());
+        $model = wf_message::findOrFail($id);
         if($model->update($request->all())){
             return [
                 'success' => true,
@@ -43,8 +53,16 @@ class KoneksiController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate(self::validasi());
-        if(koneksi_m::create($request->all())){
+        $rules = self::validasi($request->all());
+        $messages = self::validasi_message($request->all());
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()){
+            return response()->json([
+                'message' => 'error input',
+                'errors' => $validator->messages()
+            ], 400);
+        }
+        if(wf_message::create($request->all())){
             return [
                 'success' => true,
                 'message' => 'Data Berhasil Di Tambahkan'
@@ -86,5 +104,16 @@ class KoneksiController extends Controller
             'host' => 'required',
             'port' => 'required|numeric',
         ];
+    }
+
+    public function validasi_message($data){
+        $messages = [];
+        if(isset($data['nama_db'])){
+            $messages['nama_db.required'] = 'Nama database harus di isi';
+            $messages['username.required'] = 'Username harus di isi';
+            $messages['host.required'] = 'Hostname harus di isi';
+            $messages['port.required'] = 'Port harus di isi';
+        }
+        return $messages;
     }
 }

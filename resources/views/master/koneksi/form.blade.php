@@ -16,5 +16,5 @@
 </div>
 <div class="form-group">
     <label>Port</label>
-    {!! Form::number('port', null, ['class' => 'form-control', 'id' => 'port']) !!}
+    {!! Form::text('port', null, ['class' => 'form-control', 'id' => 'port']) !!}
 </div>
