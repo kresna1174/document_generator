@@ -1,17 +1,10 @@
 @extends('layout.main')
 @section('title')
-    <span>Master Koneksi</span>
-    <a href="javascript:void()" onclick="create()" class="btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></a>
+  <span>Master Koneksi</span>
+  <a href="javascript:void()" onclick="create()" class="btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></a>
 @endsection
 @section('content')
-<!-- <div class="row"> -->
-    <div class="isi">
-        
-    </div>
-
-    
-  <!-- </div> -->
-            
+  <div id="connections"></div>            
 @endsection
 @section('js')
   <script>
@@ -35,7 +28,7 @@
         $.ajax({
           url: '<?= route('koneksi.get') ?>',
           success: function(response){
-            $('.isi').html(response);
+            $('#connections').html(response);
           }
         });
       }
@@ -65,7 +58,7 @@
                     title: "Create",
                     text: response.message,
                     icon: "success",
-                    button: "Oke",
+                    button: "Oke"
                     });
                     bootbox.hideAll();
                     get();
@@ -74,7 +67,7 @@
                     title: "Create",
                     text: response.message,
                     icon: "warning",
-                    button: "Oke",
+                    button: "Oke"
                     });
             }
           },
@@ -118,7 +111,7 @@
                     title: "delete",
                     text: response.message,
                     icon: "success",
-                    button: "Oke",
+                    button: "Oke"
                     });
                     get();
                     bootbox.hideAll();
@@ -127,7 +120,7 @@
                     title: "delete",
                     text: response.message,
                     icon: "warning",
-                    button: "Oke",
+                    button: "Oke"
                     });
                     bootbox.hideAll();
             }
