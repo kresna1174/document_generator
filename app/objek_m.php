@@ -14,12 +14,14 @@ class objek_m extends Model
     }
 
     protected $table = 'objek';
-    protected $fillable = ['objek', 'koneksi', 'objek_tipe', 'nama_table', 'nama_kolom'];
+    protected $primary_key = 'id';
+    protected $guarded = [];
     public $timestamps = false;
 
     public function scope_Koneksi($query){
-        $query->select('*')
-        ->leftJoin('koneksi', 'koneksi.id', 'objek.id');
+        return $query->select('koneksi.nama_db', 'koneksi.username', 'koneksi.password', 'koneksi.host', 'koneksi.port', 'objek.objek','objek.id', 'objek.nama_table', 'objek.id_koneksi', 'objek.id_objek_tipe', 'objek.nama_kolom', 'objek.query', 'objek_tipe.objek_tipe')
+        ->leftJoin('koneksi', 'koneksi.id', 'objek.id_koneksi')
+        ->leftJoin('objek_tipe', 'objek_tipe.id', 'objek.id_objek_tipe');
     }
 
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\wf_message;
+use App\koneksi_m;
 
 class KoneksiController extends Controller
 {
@@ -13,7 +13,7 @@ class KoneksiController extends Controller
     }
 
     public function get(){
-        $model = wf_message::all();
+        $model = koneksi_m::all();
         return view('master.koneksi.get', compact('model'));
     }
 
@@ -22,13 +22,13 @@ class KoneksiController extends Controller
     }
 
     public function edit($id){
-        $model = wf_message::findOrFail($id);
+        $model = koneksi_m::findOrFail($id);
         return view('master.koneksi.edit', compact('model'));
     }
 
     public function update(Request $request, $id){
         $request->validate(self::validasi());
-        $model = wf_message::findOrFail($id);
+        $model = koneksi_m::findOrFail($id);
         if($model->update($request->all())){
             return [
                 'success' => true,
@@ -44,7 +44,7 @@ class KoneksiController extends Controller
 
     public function store(Request $request){
         $request->validate(self::validasi());
-        if(wf_message::create($request->all())){
+        if(koneksi_m::create($request->all())){
             return [
                 'success' => true,
                 'message' => 'Data Berhasil Di Tambahkan'
@@ -58,7 +58,7 @@ class KoneksiController extends Controller
     }
 
     public function delete($id){
-        $model = wf_message::find($id);
+        $model = koneksi_m::find($id);
             if($model){
                 if($model->delete()){
                     return [

@@ -11,10 +11,11 @@
   <link rel="icon" href="{!! asset('template') !!}/img/logo.png">
   <link href="{!! asset('template') !!}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="{!! asset('template') !!}/css/sb-admin-2.min.css" rel="stylesheet">
-  <!-- <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet"> -->
+  <!-- <link href="{!! asset('sweetalert') !!}/dist/sweetalert.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="@sweetalert2/theme-dark/dark.css">
   <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="{!! asset('template') !!}/datatable/Button/css/buttons.bootstrap4.min.css" rel="stylesheet">
-  <!-- <link href="{!! asset('template') !!}/datatable/Button/css/buttons.bootstrap.min.css" rel="stylesheet"> -->
+  <!-- <link href="{!! asset('jquery.growl') !!}/css/jquery.growl.css" rel="stylesheet"> -->
   <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.responsive.min.css" rel="stylesheet">
   <link href="{!! asset('template') !!}/css/style.css" rel="stylesheet">
 
@@ -64,9 +65,10 @@
 <script src="{!! asset('template') !!}/datatable/DataTables/js/jquery.dataTables.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/DataTables/js/dataTables.bootstrap.min.js"></script> 
 <script src="{!! asset('template') !!}/datatable/DataTables/js/dataTables.bootstrap4.min.js"></script>
-<script src="{!! asset('template') !!}/datatable/Button/js/buttons.bootstrap.min.js"></script>
-<script src="{!! asset('template') !!}/datatable/Button/js/buttons.bootstrap4.min.js"></script>
-<script src="{!! asset('template') !!}/datatable/Button/js/dataTables.buttons.min.js"></script>
+<script src="{!! asset('sweetalert') !!}/sweet.min.js"></script>
+<!-- <script src="{!! asset('sweetalert') !!}/dist/sweetalert-dev.js"></script> -->
+<!-- <script src="{!! asset('jquery.growl') !!}/js/jquery.growl.js"></script> -->
+<!-- <script src="{!! asset('template') !!}/datatable/Button/js/dataTables.buttons.min.js"></script> -->
 <script src="{!! asset('template') !!}/datatable/JSZip/jszip.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/pdfmake/pdfmake.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/pdfmake/vfs_fonts.js"></script>
