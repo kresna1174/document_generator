@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\wf_message;
+use App\koneksi_m;
 use Illuminate\Support\Facades\Validator;
 
 class KoneksiController extends Controller
@@ -37,8 +37,7 @@ class KoneksiController extends Controller
                 'errors' => $validator->messages()
             ], 400);
         }
-        // $request->validate(self::validasi());
-        $model = wf_message::findOrFail($id);
+        $model = koneksi_m::findOrFail($id);
         if($model->update($request->all())){
             return [
                 'success' => true,
@@ -62,7 +61,7 @@ class KoneksiController extends Controller
                 'errors' => $validator->messages()
             ], 400);
         }
-        if(wf_message::create($request->all())){
+        if(koneksi_m::create($request->all())){
             return [
                 'success' => true,
                 'message' => 'Data Berhasil Di Tambahkan'
@@ -101,7 +100,7 @@ class KoneksiController extends Controller
         return [
             'nama_db' => 'required',
             'username' => 'required',
-            'host' => 'required',
+            'host' => 'required|ip',
             'port' => 'required|numeric',
         ];
     }
