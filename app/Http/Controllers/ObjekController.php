@@ -18,7 +18,7 @@ class ObjekController extends Controller
     }
     
     public function get_data(){
-        return Datatables::of(objek_m::_koneksi())
+        return Datatables::of(objek_m::_koneksi()->get())
         ->make(true);
         return view('master.objek.index');
     }
