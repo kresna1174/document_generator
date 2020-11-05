@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class WfMessage extends Migration
+class TableObjek extends Migration
 {
     /**
      * Run the migrations.
@@ -16,18 +16,11 @@ class WfMessage extends Migration
         Schema::create('objek', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('objek');
-            $table->string('koneksi');
-            $table->string('objek_tipe');
-            $table->string('nama_table');
-            $table->string('nama_kolom');
-        });
-        Schema::create('koneksi', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nama_db');
-            $table->string('username');
-            $table->string('password');
-            $table->string('host');
-            $table->string('port');
+            $table->string('id_koneksi');
+            $table->string('id_objek_tipe');
+            $table->string('nama_table')->nullable();
+            $table->string('nama_kolom')->nullable();
+            $table->string('query')->nullable();
         });
     }
 
@@ -39,6 +32,5 @@ class WfMessage extends Migration
     public function down()
     {
         Schema::dropIfExists('objek');
-        Schema::dropIfExists('koneksi');
     }
 }
