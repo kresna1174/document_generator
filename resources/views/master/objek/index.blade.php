@@ -7,7 +7,7 @@
 <div class="container mt-5 pb-5">
     <div class="panel panel-default">
         <div class="panel-body">
-            <table width="100%" id="table" class="table table-bordered table-hover">
+            <table width="100%" id="table" class="table table-bordered table-consoned table-striped">
                 <thead>
                     <tr>
                         <th>objek</th>
@@ -164,44 +164,44 @@
     }
 
     function get_objek_tipe(){
-            var value = $('#objek_tipe').val();
-            var nama_table = $('#nama_table').val();
-            var nama_kolom = $('#nama_kolom').val();
-            if (value == 1 || value == 'table') {
-                var bungkus = $('.bungkus').children();
-                if(bungkus.length == 1){
-                    $('.bungkus').children().remove();
-                }
-                var html_row;
-                    html_row = '<div class="table">';
-                    html_row += '<div class="form-group">';
-                    html_row += '<label>Nama Table</label>';
-                    html_row += '<input type="text" name="nama_table" value="'+nama_table+'" class="form-control">';
-                    html_row += '</div>';
-                    html_row += '<div class="form-group">';
-                    html_row += '<label>Nama Kolom</label>';
-                    html_row += '<input type="text" name="nama_kolom" value="'+nama_kolom+'" class="form-control">';
-                    html_row += '</div>';
-                    html_row += '</div>';
-                    // console.log(html_row);
+        var value = $('#objek_tipe').val();
+        var nama_table = $('#nama_table').val();
+        var nama_kolom = $('#nama_kolom').val();
+        if (value == 1 || value == 'table') {
+            var bungkus = $('.bungkus').children();
+            if(bungkus.length == 1){
+                $('.bungkus').children().remove();
+            }
+            var html_row;
+                html_row = '<div class="table">';
+                html_row += '<div class="form-group">';
+                html_row += '<label>Nama Table</label>';
+                html_row += '<input type="text" name="nama_table" value="'+nama_table+'" class="form-control">';
+                html_row += '</div>';
+                html_row += '<div class="form-group">';
+                html_row += '<label>Nama Kolom</label>';
+                html_row += '<input type="text" name="nama_kolom" value="'+nama_kolom+'" class="form-control">';
+                html_row += '</div>';
+                html_row += '</div>';
+                // console.log(html_row);
 
-                $('.form .bungkus').append(html_row);
-            } else if (value == 2 || value == 'query') {
-                var query = $('#query').val();
-                var bungkus = $('.bungkus').children();
-                if(bungkus.length == 1){
-                    $('.bungkus').children().remove();
+            $('.form .bungkus').append(html_row);
+        } else if (value == 2 || value == 'query') {
+            var query = $('#query').val();
+            var bungkus = $('.bungkus').children();
+            if(bungkus.length == 1){
+                $('.bungkus').children().remove();
+            }
+            var html_row;
+                html_row = '<div class="query">';
+                html_row += '<div class="form-group">';
+                html_row += '<label>Query</label>';
+                html_row += '<textarea name="query" class="form-control">'+query+'</textarea>';
+                html_row += '</div>';
+                html_row += '</div>';
+            $('.form .bungkus').append(html_row);
                 }
-                var html_row;
-                    html_row = '<div class="query">';
-                    html_row += '<div class="form-group">';
-                    html_row += '<label>Query</label>';
-                    html_row += '<textarea name="query" class="form-control">'+query+'</textarea>';
-                    html_row += '</div>';
-                    html_row += '</div>';
-                $('.form .bungkus').append(html_row);
-                    }
-                }
+            }
 
     function get_value(){
             var value = $('#objek_tipe').val();
@@ -228,65 +228,86 @@
                 if(bungkus.length == 1){
                     $('.bungkus').children().remove();
                 }
+                var id_oke = $('#oke').val();
                 var html_row;
                     html_row = '<div class="query">';
                     html_row += '<div class="form-group">';
                     html_row += '<label>Query</label>';
-                    html_row += '<textarea name="query" class="form-control"></textarea>';
+                    html_row += '<textarea id="query_create" name="query" class="form-control" onkeydown = "get_query()"></textarea>';
                     html_row += '</div>';
                     html_row += '</div>';
                 $('.form .bungkus').append(html_row);
                     }
                 }
 
+    function get_query(){
+        var query_value = $('#query_create').val();
+        if(query_value == 'SELECT * FROM'){
+            var html_row = '<select class="form-control">';
+                html_row += '<option value="penjualan" id="penjualan">Penjualan</option>';
+                html_row += '</select>';
+                html_row += '<br>';
+                html_row += '<button type="button" class="btn btn-primary form-control input-sm" onclick="oke()">Ok</button>';
+                bootbox.dialog({
+                    title: 'Create',
+                    message: html_row
+                });
+            }
+        }
+
+        function oke(){
+            var selector = $('#penjualan').val();
+                $('#query_create').val(selector);
+        }
+
     function destroy(id){
         Swal.fire({
-                    title: 'Delete',
-                    text: 'Apakah anda yakin akan menghapus data ini?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#929ba1',
-                    confirmButtonText: 'Oke'
-                    }).then((result) => {
-                    if (result.value) {
-                       
-                        $.ajax({
-                            url: '<?= route('objek.delete') ?>/'+id,
-                            success: function(response) {
-                                dataTable.ajax.reload();
+            title: 'Delete',
+            text: 'Apakah anda yakin akan menghapus data ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#929ba1',
+            confirmButtonText: 'Oke'
+            }).then((result) => {
+            if (result.value) {
+                
+                $.ajax({
+                    url: '<?= route('objek.delete') ?>/'+id,
+                    success: function(response) {
+                        dataTable.ajax.reload();
+                    Swal.fire({
+                        title : 'Terhapus!',
+                        icon: 'success',
+                            text: response.message,
+                    })
+                        },
+                        error: function(){
                             Swal.fire({
-                                title : 'Terhapus!',
-                                icon: 'success',
-                                    text: response.message,
+                                title: 'Error!',
+                                text: response.message,
+                                type: 'error'
                             })
-                                },
-                                error: function(){
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: response.message,
-                                        type: 'error'
-                                    })
-                                }
-                            });
-                }else if (result.dismiss === Swal.DismissReason.cancel) {
-                    Swal.fire(
-                    'Cancelled',
-                    'Data tidak jadi dihapus',
-                    'error'
-                    )
-                }
-            });
-    }
-
-        function errormessage(errors){
-            var validations = '<div class="alert alert-danger">';
-                validations += '<p><b>'+errors.message+'</b></p>';
-                $.each(errors.errors, function(i, error){
-                    validations += error[0]+'<br>';
-                });
-                validations += '</div>';
-                return validations;
+                        }
+                    });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+            'Cancelled',
+            'Data tidak jadi dihapus',
+            'error'
+            )
         }
+    });
+}
+
+    function errormessage(errors){
+        var validations = '<div class="alert alert-danger">';
+            validations += '<p><b>'+errors.message+'</b></p>';
+            $.each(errors.errors, function(i, error){
+                validations += error[0]+'<br>';
+            });
+            validations += '</div>';
+            return validations;
+    }
 </script>
 @endsection

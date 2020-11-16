@@ -1575,3 +1575,6 @@ body.flat-black {
     background: #E7E7E7;
 }
 
+.modal-header .close{
+    margin-top: -10px;
+}

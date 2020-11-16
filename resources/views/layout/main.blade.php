@@ -12,13 +12,11 @@
   <link href="{!! asset('template') !!}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="{!! asset('template') !!}/css/sb-admin-2.min.css" rel="stylesheet">
   <!-- <link href="{!! asset('sweetalert') !!}/dist/sweetalert.css" rel="stylesheet"> -->
-  <link rel="stylesheet" href="@sweetalert2/theme-dark/dark.css">
   <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="{!! asset('template') !!}/datatable/Button/css/buttons.bootstrap4.min.css" rel="stylesheet">
   <!-- <link href="{!! asset('jquery.growl') !!}/css/jquery.growl.css" rel="stylesheet"> -->
   <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.responsive.min.css" rel="stylesheet">
   <link href="{!! asset('template') !!}/css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -32,7 +30,7 @@
       </button>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown no-arrow content">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 medium"><i class="fas fa-calendar">&nbsp;</i><?= date('l-F-Y') ?></span>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 medium"><i class="fas fa-calendar">&nbsp;</i><?= date('l, j-F-Y') ?></span>
         </li>
       </ul>
     </nav>
@@ -59,6 +57,7 @@
 <script src="{!! asset('template') !!}/js/sb-admin-2.min.js"></script>
 <script src="{!! asset('template') !!}/bootbox/bootbox.min.js"></script>
 <script src="{!! asset('template') !!}/bootbox/bootbox.all.min.js"></script>
+<script src="{!! asset('template') !!}/bootbox/bootbox.locales.min.js"></script>
 <script src="{!! asset('template') !!}/js/datatable.js"></script>
 <script src="{!! asset('template') !!}/js/jquery.js"></script>
 <script src="{!! asset('template') !!}/js/sweet.js"></script>
