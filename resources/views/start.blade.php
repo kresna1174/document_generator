@@ -22,12 +22,13 @@
 
     <script src="{!! asset('template') !!}/vendor/jquery/jquery.min.js"></script>
     <script src="{!! asset('template') !!}/img/login-bg.png"></script>
-  <script src="{!! asset('template') !!}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="{!! asset('template') !!}/js/sb-admin-2.min.js"></script>
-  <script src="{!! asset('template') !!}/bootbox/bootbox.min.js"></script>
-  <script src="{!! asset('template') !!}/bootbox/bootbox.all.min.js"></script>
-  <script src="{!! asset('template') !!}/js/datatable.js"></script>
-  <script src="{!! asset('template') !!}/js/jquery.js"></script>
-  <script src="{!! asset('template') !!}/js/sweet.js"></script>
+    <script src="{!! asset('template') !!}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{!! asset('template') !!}/js/sb-admin-2.min.js"></script>
+    <script src="{!! asset('template') !!}/bootbox/bootbox.min.js"></script>
+    <script src="{!! asset('template') !!}/bootbox/bootbox.all.min.js"></script>
+    <script src="{!! asset('template') !!}/js/datatable.js"></script>
+    <script src="{!! asset('template') !!}/js/jquery.js"></script>
+    <script src="{!! asset('template') !!}/js/sweet.js"></script>
+    </script>
 </body>
 </html>

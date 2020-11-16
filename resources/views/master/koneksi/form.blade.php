@@ -8,7 +8,7 @@
 </div>
 <div class="form-group">
     <label>password</label>
-    {!! Form::password('password', null, ['class' => 'awesome', 'id' => 'password']); !!}
+    {!! Form::password('password', ['class' => 'form-control', 'id' => 'password']); !!}
 </div>
 <div class="form-group">
     <label>port</label>

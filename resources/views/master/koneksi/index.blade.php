@@ -4,13 +4,9 @@
     <a href="javascript:void()" onclick="create()" class="btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></a>
 @endsection
 @section('content')
-<!-- <div class="row"> -->
     <div class="isi">
         
     </div>
-
-    
-  <!-- </div> -->
             
 @endsection
 @section('js')

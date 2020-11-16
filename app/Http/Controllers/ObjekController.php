@@ -18,7 +18,7 @@ class ObjekController extends Controller
     }
     
     public function get_data(){
-        return Datatables::of(objek_m::_koneksi()->get())
+        return Datatables::of(objek_m::orderBy('id', 'DESC')->_koneksi()->get())
         ->make(true);
         return view('master.objek.index');
     }
@@ -112,7 +112,6 @@ class ObjekController extends Controller
     }
 
     public function validasi($data){
-        // dd($data);
         if(isset($data['id_objek_tipe'])){
             if($data['id_objek_tipe'] == 'table' || $data['id_objek_tipe'] == 1){
                 return [
