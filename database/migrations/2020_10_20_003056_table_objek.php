@@ -15,12 +15,12 @@ class TableObjek extends Migration
     {
         Schema::create('objek', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('objek');
-            $table->string('id_koneksi');
-            $table->string('id_objek_tipe');
-            $table->string('nama_table')->nullable();
-            $table->string('nama_kolom')->nullable();
-            $table->string('query')->nullable();
+            $table->string('objek', 64);
+            $table->integer('id_koneksi', 11);
+            $table->integer('id_objek_tipe', 11);
+            $table->string('nama_table', 64)->nullable();
+            $table->string('nama_kolom', 64)->nullable();
+            $table->string('query', 64)->nullable();
         });
     }
 
