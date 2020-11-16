@@ -8,7 +8,7 @@
 </div>
 <div class="form-group">
     <label>Upload</label>
-    {!! Form::file('file_world', ['class' => 'form-control-file card shadow pt-5 pl-2 pb-2' ,'id' => 'file_world']) !!}
+    {!! Form::file('file_world', ['class' => 'form-control-file card shadow pt-2 pl-2 pb-2' ,'id' => 'file_world']) !!}
 </div>
 
 

@@ -10,11 +10,11 @@
             <table width="100%" id="table" class="table table-bordered table-consoned table-striped">
                 <thead>
                     <tr>
-                        <th>objek</th>
-                        <th>koneksi</th>
-                        <th class="text-left">objek tipe</th>
-                        <th class="text-left">nama table</th>
-                        <th class="text-left">nama kolom</th>
+                        <th>Objek</th>
+                        <th>Koneksi</th>
+                        <th class="text-left">Objek Tipe</th>
+                        <th class="text-left">Nama Table</th>
+                        <th class="text-left">Nama Kolom</th>
                         <th></th>
                     </tr>
                 </thead>

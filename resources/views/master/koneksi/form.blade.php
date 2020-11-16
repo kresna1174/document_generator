@@ -1,20 +1,24 @@
 <div class="form-group">
-    <label>nama database</label>
+    <label>Judul</label>
+    {!! Form::text('judul', null, ['class' => 'form-control', 'id' => 'judul']) !!}
+</div>
+<div class="form-group">
+    <label>Nama Database</label>
     {!! Form::text('nama_db', null, ['class' => 'form-control', 'id' => 'nama_db']) !!}
 </div>
 <div class="form-group">
-    <label>username</label>
+    <label>Username</label>
     {!! Form::text('username', null, ['class' => 'form-control', 'id' => 'username']) !!}
 </div>
 <div class="form-group">
-    <label>password</label>
-    {!! Form::password('password', ['class' => 'form-control', 'id' => 'password']); !!}
+    <label>Password</label>
+    {!! Form::password('password', ['class' => 'form-control', 'id' => 'password']) !!}
 </div>
 <div class="form-group">
-    <label>port</label>
-    {!! Form::number('port', null, ['class' => 'form-control', 'id' => 'port']) !!}
+    <label>Hostname</label>
+    {!! Form::text('host', null, ['class' => 'form-control', 'id' => 'host']) !!}
 </div>
 <div class="form-group">
-    <label>host</label>
-    {!! Form::number('host', null, ['class' => 'form-control', 'id' => 'host']) !!}
+    <label>Port</label>
+    {!! Form::text('port', null, ['class' => 'form-control', 'id' => 'port', 'onkeypress' => 'return in_angka(event)']) !!}
 </div>
