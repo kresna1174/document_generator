@@ -15,6 +15,7 @@ class CreateKoneksiTable extends Migration
     {
         Schema::create('koneksi', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('judul', 64);
             $table->string('nama_db', 20);
             $table->string('username', 64);
             $table->string('password', 64)->nullable();

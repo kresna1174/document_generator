@@ -1,4 +1,8 @@
 <div class="form-group">
+    <label>Judul</label>
+    {!! Form::text('judul', null, ['class' => 'form-control', 'id' => 'judul']) !!}
+</div>
+<div class="form-group">
     <label>Nama Database</label>
     {!! Form::text('nama_db', null, ['class' => 'form-control', 'id' => 'nama_db']) !!}
 </div>
@@ -16,5 +20,5 @@
 </div>
 <div class="form-group">
     <label>Port</label>
-    {!! Form::text('port', null, ['class' => 'form-control', 'id' => 'port']) !!}
+    {!! Form::text('port', null, ['class' => 'form-control', 'id' => 'port', 'onkeypress' => 'return in_angka(event)']) !!}
 </div>
