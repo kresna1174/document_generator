@@ -15,7 +15,7 @@
     {!! Form::password('password', ['class' => 'form-control', 'id' => 'password']) !!}
 </div>
 <div class="form-group">
-    <label>Hostname</label>
+    <label>Host</label>
     {!! Form::text('host', null, ['class' => 'form-control', 'id' => 'host']) !!}
 </div>
 <div class="form-group">
