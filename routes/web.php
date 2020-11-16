@@ -50,8 +50,19 @@ Route::group(['prefix' => 'objek'], function(){
 Route::group(['prefix' => 'jenis_dokumen'], function(){
     Route::get('/', 'Jenis_Dokumen_Controller@index')->name('jenis_dokumen');
     Route::get('get_data', 'Jenis_Dokumen_Controller@get_data')->name('jenis_dokumen.get_data');
+    Route::get('create', 'Jenis_Dokumen_Controller@create')->name('jenis_dokumen.create');
+    Route::post('store', 'Jenis_Dokumen_Controller@store')->name('jenis_dokumen.store');
+    Route::get('edit/{id?}', 'Jenis_Dokumen_Controller@edit')->name('jenis_dokumen.edit');
+    Route::post('update/{id?}', 'Jenis_Dokumen_Controller@update')->name('jenis_dokumen.update');
+    Route::get('delete/{id?}', 'Jenis_Dokumen_Controller@delete')->name('jenis_dokumen.delete');
 });
 
 Route::group(['prefix' => 'cetak'], function(){
     Route::get('/', 'CetakController@index')->name('cetak');
+    Route::get('create', 'CetakController@create')->name('cetak.create');
+    Route::get('edit/{id?}', 'CetakController@edit')->name('cetak.edit');
+    Route::post('update/{id?}', 'CetakController@update')->name('cetak.update');
+    Route::get('delete/{id?}', 'CetakController@delete')->name('cetak.delete');
+    Route::post('store', 'CetakController@store')->name('cetak.store');
+    Route::get('get_data', 'CetakController@get_data')->name('cetak.get_data');
 });
