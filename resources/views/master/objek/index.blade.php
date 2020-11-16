@@ -43,7 +43,7 @@
           ajax: '<?= route('objek.get_data') ?>',
           columns:[
               {data: 'objek', name: 'objek'},
-              {data: 'nama_db', name: 'nama_db'},
+              {data: 'judul', name: 'judul'},
               {data: 'objek_tipe', name: 'objek_tipe'},
               {data: 'nama_table', name: 'nama_table'},
               {data: 'nama_kolom', name: 'nama_kolom'},
@@ -233,32 +233,32 @@
                     html_row = '<div class="query">';
                     html_row += '<div class="form-group">';
                     html_row += '<label>Query</label>';
-                    html_row += '<textarea id="query_create" name="query" class="form-control" onkeydown = "get_query()"></textarea>';
+                    html_row += '<textarea id="query_create" name="query" class="form-control"></textarea>';
                     html_row += '</div>';
                     html_row += '</div>';
                 $('.form .bungkus').append(html_row);
                     }
                 }
 
-    function get_query(){
-        var query_value = $('#query_create').val();
-        if(query_value == 'SELECT * FROM'){
-            var html_row = '<select class="form-control">';
-                html_row += '<option value="penjualan" id="penjualan">Penjualan</option>';
-                html_row += '</select>';
-                html_row += '<br>';
-                html_row += '<button type="button" class="btn btn-primary form-control input-sm" onclick="oke()">Ok</button>';
-                bootbox.dialog({
-                    title: 'Create',
-                    message: html_row
-                });
-            }
-        }
+    // function get_query(){
+    //     var query_value = $('#query_create').val();
+    //     if(query_value == 'SELECT * FROM'){
+    //         var html_row = '<select class="form-control">';
+    //             html_row += '<option value="penjualan" id="penjualan">Penjualan</option>';
+    //             html_row += '</select>';
+    //             html_row += '<br>';
+    //             html_row += '<button type="button" class="btn btn-primary form-control input-sm" onclick="oke()">Ok</button>';
+    //             bootbox.dialog({
+    //                 title: 'Create',
+    //                 message: html_row
+    //             });
+    //         }
+    //     }
 
-        function oke(){
-            var selector = $('#penjualan').val();
-                $('#query_create').val(selector);
-        }
+    //     function oke(){
+    //         var selector = $('#penjualan').val();
+    //             $('#query_create').val(selector);
+    //     }
 
     function destroy(id){
         Swal.fire({
