@@ -153,7 +153,14 @@
               		)
             	}
         	});
-      	}
+		  }
+		  
+		  function in_angka(evt){
+			  var charcode = (evt.which) ? evt.which : event.keyCode
+			  if(charcode > 31 && charcode < 48 || charcode > 57){
+				  return false;
+				}
+		  }
 
     	function validation(errors){
         	var validation = '<div class="alert alert-danger">';

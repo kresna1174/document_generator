@@ -98,6 +98,7 @@ class KoneksiController extends Controller
 
     public function validasi(){
         return [
+            'judul' => 'required',
             'nama_db' => 'required',
             'username' => 'required',
             'host' => 'required|ip',
@@ -107,12 +108,11 @@ class KoneksiController extends Controller
 
     public function validasi_message($data){
         $messages = [];
-        if(isset($data['nama_db'])){
+            $messages['judul.required'] = 'Judul harus di isi';
             $messages['nama_db.required'] = 'Nama database harus di isi';
             $messages['username.required'] = 'Username harus di isi';
             $messages['host.required'] = 'Hostname harus di isi';
             $messages['port.required'] = 'Port harus di isi';
-        }
         return $messages;
     }
 }
