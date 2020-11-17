@@ -4,7 +4,15 @@
 	<a href="javascript:void()" onclick="create()" class="btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></a>
 @endsection
 @section('content')
-	<div id="connections"></div>
+<!-- <div class="row"> -->
+  <div class="container mt-5 pb-5">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="connections"></div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->   
 @endsection
 @section('js')
 	<script>
