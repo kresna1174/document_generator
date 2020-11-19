@@ -20,6 +20,13 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'dashboard'], function(){
     Route::get('/', 'DashboardController@index')->name('dashboard');
+    Route::get('get_data', 'DashboardController@get_data')->name('dashboard.get_data');
+    Route::get('edit/{id?}', 'DashboardController@edit')->name('dashboard.edit');
+    Route::post('update/{id?}', 'DashboardController@update')->name('dashboard.update');
+    Route::get('delete/{id?}', 'DashboardController@delete')->name('dashboard.delete');
+    Route::get('view/{id?}', 'DashboardController@view')->name('dashboard.view');
+    Route::get('view_doc', 'DashboardController@view_doc')->name('dashboard.view_doc');
+    Route::get('download/{id?}', 'DashboardController@download')->name('dashboard.download');
 });
 
 Route::group(['prefix' => 'koneksi'], function(){
@@ -59,10 +66,8 @@ Route::group(['prefix' => 'jenis_dokumen'], function(){
 
 Route::group(['prefix' => 'cetak'], function(){
     Route::get('/', 'CetakController@index')->name('cetak');
-    Route::get('create', 'CetakController@create')->name('cetak.create');
-    Route::get('edit/{id?}', 'CetakController@edit')->name('cetak.edit');
-    Route::post('update/{id?}', 'CetakController@update')->name('cetak.update');
-    Route::get('delete/{id?}', 'CetakController@delete')->name('cetak.delete');
-    Route::post('store', 'CetakController@store')->name('cetak.store');
+    Route::get('create/{id?}', 'CetakController@create')->name('cetak.create');
+    Route::post('store/{id?}', 'CetakController@store')->name('cetak.store');
     Route::get('get_data', 'CetakController@get_data')->name('cetak.get_data');
+    Route::get('view', 'CetakController@view')->name('cetak.view');
 });
