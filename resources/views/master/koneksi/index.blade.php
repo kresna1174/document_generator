@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('title')
-	<span>Master Koneksi</span>
-	<a href="javascript:void()" onclick="create()" class="btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></a>
+<h4>Master Koneksi</h4>
+<button type="button" onclick="create()" class="ml-1 mb-2 btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></button>
 @endsection
 @section('content')
 	<div id="connections"></div>            

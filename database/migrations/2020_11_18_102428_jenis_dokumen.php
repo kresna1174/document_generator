@@ -17,7 +17,9 @@ class JenisDokumen extends Migration
             $table->bigIncrements('id');
             $table->string('nama_surat', 64);
             $table->string('file', 255);
-            $table->integer('id_objek', 11);
+            $table->integer('id_objek')->length(11)->unsigned();
+            $table->integer('id_koneksi')->length(11)->unsigned();
+            $table->integer('id_objek_tipe')->length(11)->unsigned();
         });
     }
 

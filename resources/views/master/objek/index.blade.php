@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('title')
-    <span>Master Objek</span>
-    <a href="javascript:void()" onclick="create()" class="btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></a>
+<h4>Master Objek</h4>
+    <button type="button" onclick="create()" class="ml-1 mb-2 btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></button>
 @endsection
 @section('content')
 <div class="container mt-5 pb-5">
@@ -48,9 +48,9 @@
               {data: 'nama_table', name: 'nama_table'},
               {data: 'nama_kolom', name: 'nama_kolom'},
               {data: 'id', name:'objek.id', width: '150px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
-                  return '<a href="javascript:void()" class="btn btn-info btn-sm" onclick="view('+data+')">view</a> \n\
-                   <a href="javascript:void()" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</a>\n\
-                  <a href="javascript:void()" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</a>';
+                  return '<button type="button" class="btn btn-info btn-sm" onclick="view('+data+')">view</button> \n\
+                   <button type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
+                  <button type="button" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</button>';
               }}
           ]
       }); 

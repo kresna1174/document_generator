@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
+date_default_timezone_set("Asia/Jakarta");
 
 use Illuminate\Http\Request;
 use DataTables;
@@ -25,7 +25,8 @@ class Jenis_Dokumen_Controller extends Controller
 
     public function create(){
         $objek = objek_m::pluck('objek', 'id');
-        return view('master.jenis_dokumen.create', compact('objek'));
+        $id_jenis_dokumen = objek_m::_koneksi()->pluck('id', 'nama_surat');
+        return view('master.jenis_dokumen.create', compact('objek', 'id_jenis_dokumen'));
     }
 
     public function edit($id){
@@ -41,17 +42,23 @@ class Jenis_Dokumen_Controller extends Controller
             'file_world' => 'required|mimes:docx|max:5000',
         ]);
         $file = $request->file('file_world');
-        $file->move('dokumen', $file->getClientOriginalName());
+        $file_name = date('d_m_Y_H.i.s').'_'.$file->getClientOriginalName();
+        $file->move('../storage/app/public/dokumen', $file_name);
         $data = [
             'nama_surat' => $request->nama_surat,
             'id_objek' => $request->id_objek,
-            'file' => $request->file_world
+            'id_koneksi' => $request->id_objek,
+            'id_objek_tipe' => $request->id_objek,
+            'file' => $file_name
         ];
         if(jenis_dokumen_m::create($data)){
             return [
                 'success' => true,
                 'message' => 'Data berhasil di tambah'
             ];
+            if($request->post('id_jenis_dokumen')){
+                objek_m::insert($request->id_jenis_dokumen);
+            }
         }else{
             return [
                 'success' => false,
@@ -67,11 +74,12 @@ class Jenis_Dokumen_Controller extends Controller
             'file_world' => 'required|mimes:docx|max:5000',
         ]);
         $file = $request->file('file_world');
-        $file->move('dokumen', $file->getClientOriginalName());
+        $file_name = 'updates'.date('d_m_Y_H.i.s').'_'.$file->getClientOriginalName();
+        $file->move('../storage/app/public/dokumen', $file_name);
         $data = [
             'nama_surat' => $request->nama_surat,
             'id_objek' => $request->id_objek,
-            'file' => $request->file_world
+            'file' => $file_name    
         ];
         $model = jenis_dokumen_m::findOrFail($id);
         if($model->update($data)){
