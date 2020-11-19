@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TableObjek extends Migration
+class Objek extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,13 @@ class TableObjek extends Migration
     {
         Schema::create('objek', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('objek');
-            $table->string('id_koneksi');
-            $table->string('id_objek_tipe');
-            $table->string('nama_table')->nullable();
-            $table->string('nama_kolom')->nullable();
-            $table->string('query')->nullable();
+            $table->string('objek', 64);
+            $table->integer('id_koneksi')->length(11)->unsigned();
+            $table->integer('id_objek_tipe')->length(11)->unsigned();
+            $table->string('nama_table', 64)->nullable();
+            $table->string('nama_kolom', 64)->nullable();
+            $table->string('query', 64)->nullable();
+            $table->integer('id_jenis_dokumen')->length(11)->unsigned();
         });
     }
 

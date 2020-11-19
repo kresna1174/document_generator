@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\jenis_dokumen_m;
 use App\cetak_m;
+use App\objek_m;
 class CetakController extends Controller
 {
     public function index(){
@@ -13,16 +14,17 @@ class CetakController extends Controller
     }
 
     public function get_data(){
-        $model = cetak_m::_jenis_dokumen()->get();
+        $model = jenis_dokumen_m::_objek()->get();
         return view('cetak.get', compact('model'));
     }
 
-    public function create(){
+    public function create($id){
+        $model = jenis_dokumen_m::_objek()->find($id);
         $nama_surat = jenis_dokumen_m::pluck('nama_surat', 'id');
-        return view('cetak.create', compact('nama_surat'));
+        return view('cetak.create', compact('nama_surat', 'model'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request, $id){
         $rules = self::validation($request->all());
         $messages = self::validation_message($request->all());
         $validator = \Validator::make($request->all(), $rules, $messages);
@@ -32,59 +34,59 @@ class CetakController extends Controller
                 'errors' => $validator->messages()
             ], 400);
         }
-
-        if(cetak_m::create($request->all())){
-            return [
-                'success' => true,
-                'message' => 'data berhasil di tambahkan'
-            ];
-        }else{
-            return [
-                'success' => false,
-                'message' => 'data gagal di tambahkan'
-            ];
-        }
-    }
-
-    public function edit($id){
-        $model = cetak_m::findOrFail($id);
-        $nama_surat = jenis_dokumen_m::pluck('nama_surat', 'id');
-        return view('cetak.edit', compact('model', 'nama_surat'));
-    }
-
-    public function update(Request $request, $id){
-        $rules = self::validation($request->all());
-        $messages = self::validation_message($request->all());
-        $validator = \Validator::make($request->all(), $rules, $messages);
-        if($validator->fails()){
+    //     $credentials = $request->key;
+    //     $model = objek_m::get('nama_kolom');
+    //     $data = objek_m::find($id);
+    //     foreach($model as $row){
+    //         if($data){
+    //            if($credentials === $row['nama_kolom']){
+    //                return response()->json([
+    //                    'message' => 'sukses',
+    //                    'success' => true
+    //                 ], 200);
+    //             }else{
+    //                 return response()->json([
+    //                     'message' => 'key salah',
+    //                     'success' => false
+    //                 ], 400);
+    //            }
+    //        }else{
+    //             return response()->json([
+    //                 'message' => 'key tidak di temukan',
+    //                 'success' => false
+    //             ], 400);
+    //        }
+    //    }
+        $credentials = [
+            'password' => $request->key
+        ];
+        if (\Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'error input',
-                'errors' => $validator->messages()
+                'success' => true,
+                'message' => 'login sukses!!'
+            ], 200);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Email atau Password Salah'
             ], 400);
         }
-        $model = cetak_m::findOrFail($id);
-        if($model::update($request->all())){
-            return [
-                'success' => true,
-                'message' => 'data berhasil di update'
-            ];
-        }else{
-            return [
-                'success' => false,
-                'message' => 'data gagal di update'
-            ];
-        }
     }
+
+    public function view(){
+        return view('cetak.view');
+    }
+
 
     public function validation(){
         return [
-            'id_nama_surat' => 'required'
+            'key' => 'required'
         ];
     }
 
     public function validation_message(){
         $messages = [];
-        $messages['id_nama_surat.required'] = 'Nama surat harus di isi';
+        $messages['key.required'] = 'Nama surat harus di isi';
         return $messages;
     }
 }

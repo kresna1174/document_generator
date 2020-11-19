@@ -12,7 +12,8 @@ class jenis_dokumen_m extends Model
     public $timestamps = false;
 
     public function scope_Objek($query){
-        return $query->select('objek.*', 'jenis_dokumen.*')
+        return $query->select('objek.*', 'jenis_dokumen.*','koneksi.judul')
+        ->leftJoin('koneksi', 'koneksi.id', 'jenis_dokumen.id_koneksi')
         ->leftJoin('objek', 'objek.id', 'jenis_dokumen.id_objek');
     }
 }
