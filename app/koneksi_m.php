@@ -17,6 +17,7 @@ class koneksi_m extends Model
     // protected $connection = 'mysql2';
     protected $table = 'koneksi';
     protected $fillable = ['nama_db', 'username', 'password', 'host', 'port'];
+    protected $primary_key = 'id';
     public $timestamps = false;
 
     // public function scope_Koneksi($query){
