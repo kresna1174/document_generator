@@ -1,25 +1,25 @@
 @extends('layout.main')
 @section('title')
-<h4>Master Jenis Dokumen</h4>
-<button onclick="create()" class="ml-1 mb-2 btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></button>
+    <h4>Master Jenis Dokumen</h4>
+    <button onclick="create()" class="ml-1 mb-2 btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></button>
 @endsection
 
 @section('content')
 <div class="container mt-5 pb-5">
     <div class="panel panel-default">
         <div class="panel-body">
-    <table id="table" class="table table-bordered table-striped table-consoned">
-        <thead>
-            <tr>
-                <th>Nama Surat</th>
-                <th>Objek</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+            <table id="table" class="table table-bordered table-striped table-consoned">
+                <thead>
+                    <tr>
+                        <th>Nama Surat</th>
+                        <th>Objek</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-        </tbody>
-    </table>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -44,9 +44,9 @@
                 {data: 'id', name:'objek.id', width: '100px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
                     return '<button class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
                             <button class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</button>';
-                }}
-            ]
-        }); 
+                    }}
+                ]
+            }); 
         }
 
         function edit(id){
@@ -106,7 +106,7 @@
                 error: function(xhr, ajaxOptions, thrownError){
                 var response = JSON.parse(xhr.responseText);
                 $('#form_jenis_dokumen').prepend(validation(response));
-            }
+                }
             });
         }
 
@@ -142,7 +142,7 @@
                 error: function(xhr, ajaxOptions, thrownError){
                 var response = JSON.parse(xhr.responseText);
                 $('#form_jenis_dokumen').prepend(validation(response));
-            }
+                }
             });
         }
 
@@ -160,29 +160,28 @@
                     $.ajax({
                         url: '<?= route('jenis_dokumen.delete') ?>/'+id,
                         success: function(response) {
-                            dataTable.ajax.reload();
+                        dataTable.ajax.reload();
                         Swal.fire({
-                            title : 'Terhapus!',
+                            title: 'Terhapus!',
                             icon: 'success',
+                            text: response.message,
+                            })
+                        },
+                        error: function(){
+                            Swal.fire({
+                                title: 'Error!',
                                 text: response.message,
-                        })
-                            },
-                            error: function(){
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: response.message,
-                                    type: 'error'
-                                })
-                            }
-                        });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(
-                'Cancelled',
-                'Data tidak jadi dihapus',
-                'error'
-                )
-            }
-        });
+                                type: 'error'
+                            })
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                    'Cancelled',
+                    'Data tidak jadi dihapus',
+                    'error'
+                )}
+            });
         }
 
         function validation(errors){
@@ -193,6 +192,6 @@
                 });
                 validation += '</div>';
                 return validation;
-            }
+        }
     </script>
 @endsection
