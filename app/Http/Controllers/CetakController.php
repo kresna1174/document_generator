@@ -8,6 +8,7 @@ use App\jenis_dokumen_m;
 use App\cetak_m;
 use App\koneksi_m;
 use App\objek_m;
+
 class CetakController extends Controller
 {
     public function index(){
