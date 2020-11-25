@@ -17,6 +17,10 @@ class ObjekTipe extends Migration
             $table->bigIncrements('id');
             $table->string('objek_tipe', 64);
         });
+        \DB::table('objek_tipe')->insert([
+            'objek_tipe' => 'table',
+            'objek_tipe' => 'query',
+        ]);
     }
 
     /**

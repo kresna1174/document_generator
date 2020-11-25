@@ -13,7 +13,7 @@
             url: '<?= route('koneksi.create') ?>',
             success: function(response){
             	bootbox.dialog({
-                	title: 'create',
+                	title: 'create koneksi',
                 	message: response
               	});
             }
@@ -38,7 +38,7 @@
         	url: '<?= route('koneksi.edit') ?>/'+id,
         	success: function(response){
             	bootbox.dialog({
-                	title: 'edit',
+                	title: 'edit koneksi',
                 	message: response
               	});
           	}
@@ -55,7 +55,7 @@
           	success: function(response){
             	if(response.success){
                     Swal.fire({
-                    title: 'Store',
+                    title: 'Update berhasil',
                     text: response.message,
                     icon: 'success',
                     confirmButtonColor: '#2c91fb',
@@ -63,7 +63,7 @@
                     });
                 }else{
                     Swal.fire({
-                    title: 'Error',
+                    title: 'Update gagal',
                     text: response.message,
                     icon: 'error',
                     confirmButtonColor: '#d33',
@@ -90,7 +90,7 @@
           	success: function(response){
             	if(response.success){
                     Swal.fire({
-                    title: 'Store',
+                    title: 'Store berhasil',
                     text: response.message,
                     icon: 'success',
                     confirmButtonColor: '#2c91fb',
@@ -98,7 +98,7 @@
                     });
                 }else{
                     Swal.fire({
-                    title: 'Error',
+                    title: 'Store gagal',
                     text: response.message,
                     icon: 'error',
                     confirmButtonColor: '#d33',
@@ -131,14 +131,14 @@
                   	success: function(response) {
                   	dataTable.ajax.reload();
                     	Swal.fire({
-                      	title : 'Terhapus!',
+                      	title : 'Data berhasil di hapus!',
                       	icon: 'success',
                       	text: response.message,
                     	})
                   	},
                   	error: function(){
                     	Swal.fire({
-                      	title: 'Error!',
+                      	title: 'Data gagal di hapus!',
                       	text: response.message,
                       	type: 'error'
                     	})

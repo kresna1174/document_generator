@@ -21,7 +21,6 @@ class Objek extends Migration
             $table->string('nama_table', 64)->nullable();
             $table->string('nama_kolom', 64)->nullable();
             $table->string('query', 64)->nullable();
-            $table->integer('id_jenis_dokumen')->length(11)->unsigned();
         });
     }
 

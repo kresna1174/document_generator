@@ -13,7 +13,7 @@
                         <button type="button" class="text-xs font-weight-bold btn btn-danger btn-sm mb-1" onclick="destroy('{!! $row->id !!}')">Delete</button>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-database fa-5x text-gray-300"></i>
+                        <i class="fas fa-database fa-7x text-gray-300"></i>
                     </div>
                 </div>
             </div>

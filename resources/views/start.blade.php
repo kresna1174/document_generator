@@ -13,12 +13,16 @@
             background-color: #00acac;
             color: #fff;
         }
+        .my-style{
+            margin-top: 25vh !important;
+        }
     </style>
-    <div class="text-center mr-5" style="float:right;margin-top:15%">
-        <h1>Document Generator</h1><br><br>
-        <a href="<?= route('dashboard') ?>" type="button" class="btn btn-wf form-control">Start</a>
-    </div>
-        <img src="{!! asset('template') !!}/img/login-bg.jpeg" class="text-left" width="890px" height="667px">
+            <img src="{!! asset('template') !!}/img/login-bg.jpeg" class="text-left" width="60%" height="645vh">
+
+            <div class="text-center float-right mr-5 mt-5 my-style">
+                <h1>Document Generator</h1><br><br>
+                <a href="<?= route('dashboard') ?>" type="button" class="btn btn-wf form-control">Start</a>
+            </div>
 
     <script src="{!! asset('template') !!}/vendor/jquery/jquery.min.js"></script>
     <script src="{!! asset('template') !!}/img/login-bg.png"></script>
@@ -29,6 +33,5 @@
     <script src="{!! asset('template') !!}/js/datatable.js"></script>
     <script src="{!! asset('template') !!}/js/jquery.js"></script>
     <script src="{!! asset('template') !!}/js/sweet.js"></script>
-    </script>
 </body>
 </html>
