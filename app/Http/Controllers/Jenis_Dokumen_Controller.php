@@ -53,6 +53,9 @@ class Jenis_Dokumen_Controller extends Controller
                 'success' => true,
                 'message' => 'Data berhasil di tambah'
             ];
+            if($request->post('id_jenis_dokumen')){
+                objek_m::insert($request->id_jenis_dokumen);
+            }
         }else{
             return [
                 'success' => false,
