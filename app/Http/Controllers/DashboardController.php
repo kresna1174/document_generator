@@ -28,7 +28,7 @@ class DashboardController extends Controller
     public function download($id){
         $model = jenis_dokumen_m::_dashboard()->findOrFail($id);
         if($model){
-            return response()->download('storage/cetak/'.$model->file);
+            return response()->download(\Storage::path('public/cetak/'.$model->file));
         }
     }   
 
