@@ -19,6 +19,8 @@ class ObjekTipe extends Migration
         });
         \DB::table('objek_tipe')->insert([
             'objek_tipe' => 'table',
+        ]);
+        \DB::table('objek_tipe')->insert([
             'objek_tipe' => 'query',
         ]);
     }
