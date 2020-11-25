@@ -19,7 +19,6 @@ class JenisDokumen extends Migration
             $table->string('file', 255);
             $table->integer('id_objek')->length(11)->unsigned();
             $table->integer('id_koneksi')->length(11)->unsigned();
-            $table->integer('id_objek_tipe')->length(11)->unsigned();
         });
     }
 

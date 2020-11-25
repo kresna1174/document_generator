@@ -14,14 +14,8 @@ class koneksi_m extends Model
         // static::addGlobalScope(new StatusScope);
     }
 
-    // protected $connection = 'mysql2';
     protected $table = 'koneksi';
     protected $fillable = ['nama_db', 'username', 'password', 'host', 'port', 'judul'];
     protected $primary_key = 'id';
-
-    // public function scope_Koneksi($query){
-    //     return $query->select('objek.objek', 'objek.id_koneksi', 'objek.id_objek_tipe', 'objek.nama_table', 'objek.nama_kolom')
-    //     ->leftJoin('objek', 'objek.id_koneksi', 'koneksi.id');
-    // }
-    
+    public $timestamps = false;
 }

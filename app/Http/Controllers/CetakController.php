@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\jenis_dokumen_m;
 use App\cetak_m;
+use App\koneksi_m;
 use App\objek_m;
+
 class CetakController extends Controller
 {
     public function index(){
@@ -14,12 +17,12 @@ class CetakController extends Controller
     }
 
     public function get_data(){
-        $model = jenis_dokumen_m::_objek()->get();
+        $model = jenis_dokumen_m::_dashboard()->get();
         return view('cetak.get', compact('model'));
     }
 
     public function create($id){
-        $model = jenis_dokumen_m::_objek()->find($id);
+        $model = jenis_dokumen_m::_dashboard()->find($id);
         $nama_surat = jenis_dokumen_m::pluck('nama_surat', 'id');
         return view('cetak.create', compact('nama_surat', 'model'));
     }
@@ -34,47 +37,79 @@ class CetakController extends Controller
                 'errors' => $validator->messages()
             ], 400);
         }
-    //     $credentials = $request->key;
-    //     $model = objek_m::get('nama_kolom');
-    //     $data = objek_m::find($id);
-    //     foreach($model as $row){
-    //         if($data){
-    //            if($credentials === $row['nama_kolom']){
-    //                return response()->json([
-    //                    'message' => 'sukses',
-    //                    'success' => true
-    //                 ], 200);
-    //             }else{
-    //                 return response()->json([
-    //                     'message' => 'key salah',
-    //                     'success' => false
-    //                 ], 400);
-    //            }
-    //        }else{
-    //             return response()->json([
-    //                 'message' => 'key tidak di temukan',
-    //                 'success' => false
-    //             ], 400);
-    //        }
-    //    }
-        $credentials = [
-            'password' => $request->key
-        ];
-        if (\Auth::attempt($credentials)) {
-            return response()->json([
-                'success' => true,
-                'message' => 'login sukses!!'
-            ], 200);
-        }else{
-            return response()->json([
-                'success' => false,
-                'message' => 'Email atau Password Salah'
-            ], 400);
+        $jenis_dokumen = jenis_dokumen_m::findOrFail($id);
+        $objek = objek_m::findOrFail($jenis_dokumen->id_objek);
+        $koneksi = koneksi_m::findOrFail($objek->id_koneksi);
+        
+        config(['database.connections.objek' => [
+            'driver'  => 'mysql',
+            'host' => $koneksi->host,
+            'port' => $koneksi->port,
+            'database' => $koneksi->nama_db,
+            'username' => $koneksi->username,
+            'password' => $koneksi->password
+        ]]);
+        
+        $db_objek = \DB::connection('objek');
+        if ($objek->id_objek_tipe == 1) {
+            $data = $db_objek->select('select * from '.$objek->nama_table. ' where '.$objek->nama_kolom.' = \''.$request->input('key').'\'');
+        } else {
+            $query = $objek->query;
+            $query = str_replace('${key}', $request->input('key'), $query);
+            $data = $db_objek->select($query);
         }
+        
+        $template = new \PhpOffice\PhpWord\TemplateProcessor(Storage::path('public/dokumen/'.$jenis_dokumen->file));
+        $vars = $template->getVariables();
+        foreach ($vars as $var) {
+            $value = '';
+            $parse = explode('.', $var);
+            if (isset($parse[1])) {
+                if (isset($data[$parse[1]]->{$parse[0]})) {
+                    $value = $data[$parse[1]]->{$parse[0]};
+                }
+            } else {
+                if (isset($data[0]->{$parse[0]})) {
+                    $value = $data[0]->{$parse[0]};
+                }
+            }
+            $template->setValues([$var => $value]);
+        }
+        if (isset($data[0])) {
+            $template->setValues((array) $data[0]);
+        }
+        if (count($data)) {
+            foreach ($data as $i => $row) {
+                foreach ($row as $key => $val) {
+                    $template->setValues([$key.'.'.$i => $val]);
+                }
+            }
+        }
+        $file_upload = $template->saveAs(Storage::path('public/cetak/'.$jenis_dokumen->file));
+        // $file_upload = response()->download(Storage::path('public/cetak/'.$jenis_dokumen->file));
+        $isi = [
+            'file_cetak' => $jenis_dokumen->file,
+            'input_key' => $request->key
+        ];
+            if(cetak_m::create($isi)){
+                return [
+                    'success' => true,
+                    'message' => 'Key benar'
+                ];
+                download();
+            }else{
+                return [
+                    'success' => false,
+                    'message' => 'Key salah'
+                ];
+            }
     }
 
-    public function view(){
-        return view('cetak.view');
+    public function download($id){
+        $model = jenis_dokumen_m::findOrFail($id);
+        if($model){
+            return response()->download(Storage::path('public/cetak/'.$model->file));
+        }
     }
 
 

@@ -78,7 +78,7 @@
             success: function(response){
                 if(response.success){
                     Swal.fire({
-                    title: 'Store',
+                    title: 'Store berhasil',
                     text: response.message,
                     icon: 'success',
                     confirmButtonColor: '#2c91fb',
@@ -86,7 +86,7 @@
                     });
                 }else{
                     Swal.fire({
-                    title: 'Error',
+                    title: 'Store gagal',
                     text: response.message,
                     icon: 'error',
                     confirmButtonColor: '#d33',
@@ -113,7 +113,7 @@
             success: function(response){
                 if(response.success){
                     Swal.fire({
-                    title: 'Update',
+                    title: 'Update berhasil',
                     text: response.message,
                     icon: 'success',
                     confirmButtonColor: '#2c91fb',
@@ -121,7 +121,7 @@
                     });
                 }else{
                     Swal.fire({
-                    title: 'Error',
+                    title: 'Update gagal',
                     text: response.message,
                     icon: 'error',
                     confirmButtonColor: '#d33',
@@ -239,26 +239,6 @@
                 $('.form .bungkus').append(html_row);
                     }
                 }
-
-    // function get_query(){
-    //     var query_value = $('#query_create').val();
-    //     if(query_value == 'SELECT * FROM'){
-    //         var html_row = '<select class="form-control">';
-    //             html_row += '<option value="penjualan" id="penjualan">Penjualan</option>';
-    //             html_row += '</select>';
-    //             html_row += '<br>';
-    //             html_row += '<button type="button" class="btn btn-primary form-control input-sm" onclick="oke()">Ok</button>';
-    //             bootbox.dialog({
-    //                 title: 'Create',
-    //                 message: html_row
-    //             });
-    //         }
-    //     }
-
-    //     function oke(){
-    //         var selector = $('#penjualan').val();
-    //             $('#query_create').val(selector);
-    //     }
 
     function destroy(id){
         Swal.fire({

@@ -11,7 +11,10 @@ class cetak_m extends objek_m
     protected $primary_key = 'id';
     public $timestamps = false;
 
-    // public function scope_Jenis_dokumen($query){
-    //     return $query->select('jenis_dokumen.nama_surat', 'objek.objek', 'koneksi.judul')
-    // }
+    public function scope_Jenis_dokumen($query){
+        return $query->select('jenis_dokumen.*', 'objek.*', 'koneksi.*')
+            ->leftJoin('jenis_dokumen', 'jenis_dokumen.id', 'cetak.id_jenis_dokumen')
+            ->leftJoin('objek', 'objek.id', 'cetak.id_objek')
+            ->leftJoin('koneksi', 'koneksi.id', 'cetak.id_koneksi');
+    }
 }

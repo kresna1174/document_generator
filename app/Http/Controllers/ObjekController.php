@@ -149,11 +149,11 @@ class ObjekController extends Controller
                 $messages['id_objek_tipe.required'] = 'objek tipe harus di isi';
                 $messages['query.required'] = 'query harus di isi';
             }
-            } else {
-                $messages['objek.required'] = 'objek harus di isi';
-                $messages['id_koneksi.required'] = 'koneksi harus di isi';
-                $messages['id_objek_tipe.required'] = 'objek tipe harus di isi';
-            }
+        } else {
+            $messages['objek.required'] = 'objek harus di isi';
+            $messages['id_koneksi.required'] = 'koneksi harus di isi';
+            $messages['id_objek_tipe.required'] = 'objek tipe harus di isi';
+        }
         return $messages;
 
     }    
