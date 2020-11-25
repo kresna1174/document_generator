@@ -21,11 +21,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'dashboard'], function(){
     Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::get('get_data', 'DashboardController@get_data')->name('dashboard.get_data');
-    Route::get('edit/{id?}', 'DashboardController@edit')->name('dashboard.edit');
-    Route::post('update/{id?}', 'DashboardController@update')->name('dashboard.update');
     Route::get('delete/{id?}', 'DashboardController@delete')->name('dashboard.delete');
     Route::get('view/{id?}', 'DashboardController@view')->name('dashboard.view');
-    Route::get('view_doc', 'DashboardController@view_doc')->name('dashboard.view_doc');
     Route::get('download/{id?}', 'DashboardController@download')->name('dashboard.download');
 });
 
@@ -69,5 +66,5 @@ Route::group(['prefix' => 'cetak'], function(){
     Route::get('create/{id?}', 'CetakController@create')->name('cetak.create');
     Route::post('store/{id?}', 'CetakController@store')->name('cetak.store');
     Route::get('get_data', 'CetakController@get_data')->name('cetak.get_data');
-    Route::get('view', 'CetakController@view')->name('cetak.view');
+    Route::get('download/{id?}', 'CetakController@download')->name('cetak.download');
 });

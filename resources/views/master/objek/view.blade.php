@@ -8,7 +8,7 @@
     <tr>
         <th>Koneksi</th>
         <th>:</th>
-        <td>{!! $model->nama_db !!}</td>
+        <td>{!! $model->judul !!}</td>
     </tr>
     <tr>
         <th>Objek_tipe</th>

@@ -51,18 +51,16 @@
                 success: function(response){
                     if(response.success){
                         Swal.fire({
-                            title: 'store',
+                            title: 'Store sukses',
                             icon: 'success',
                             showConfirmButton: false,
-                            // showCancelButton: true,
-                            // message: response,
-                            html: '<a href="<?= route('cetak.view') ?>" target="_blank" class="btn btn-primary mt-3">oke</a>'
+                            html: '<a href="{!! route('cetak.download') !!}" class="btn btn-primary">Download</a>'
                         });
                         bootbox.hideAll();
                         get();
                     }else{
                         Swal.fire({
-                            title: 'store',
+                            title: 'Store gagal',
                             icon: 'error',
                             // message: response
                         });

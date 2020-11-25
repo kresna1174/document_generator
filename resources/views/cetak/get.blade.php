@@ -5,9 +5,9 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-4">
                         <div class="col-auto float-left">
-                            <i class="fas fa-file-alt fa-5x text-gray-300"></i>
+                            <i class="fas fa-file-alt fa-6x text-gray-300"></i>
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800 float-left mt-1">{{ $row->nama_surat }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 float-left mt-2">{{ $row->nama_surat }}</div>
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\ZipArchive;
 use Illuminate\Support\Facades\Validator;
 use App\jenis_dokumen_m;
 use App\objek_m;
+use App\koneksi_m;
 
 class Jenis_Dokumen_Controller extends Controller
 {
@@ -18,21 +19,26 @@ class Jenis_Dokumen_Controller extends Controller
     }
 
     public function get_data(){
-        return Datatables::of(jenis_dokumen_m::_objek()->get())
+        return Datatables::of(jenis_dokumen_m::_dashboard()->get())
         ->make(true);
         return view('master.jenis_dokumen.index');
     }
 
     public function create(){
-        $objek = objek_m::pluck('objek', 'id');
-        $id_jenis_dokumen = objek_m::_koneksi()->pluck('id', 'nama_surat');
-        return view('master.jenis_dokumen.create', compact('objek', 'id_jenis_dokumen'));
+        $objek = objek_m::_koneksi()->pluck('objek', 'id');
+        $koneksi = objek_m::get('id_koneksi', 'id');
+        foreach($koneksi as $row){
+            return view('master.jenis_dokumen.create', compact('objek', 'row'));
+        }
     }
 
     public function edit($id){
         $objek = objek_m::pluck('objek', 'id');
-        $model = jenis_dokumen_m::_objek()->findOrFail($id);
-        return view('master.jenis_dokumen.edit',compact('model', 'objek'));
+        $model = jenis_dokumen_m::_dashboard()->findOrFail($id);
+        $koneksi = objek_m::get('id_koneksi', 'id');
+        foreach($koneksi as $row){
+            return view('master.jenis_dokumen.edit',compact('model', 'objek', 'row'));
+        }
     }
 
     public function store(Request $request){
@@ -47,9 +53,8 @@ class Jenis_Dokumen_Controller extends Controller
         $data = [
             'nama_surat' => $request->nama_surat,
             'id_objek' => $request->id_objek,
-            'id_koneksi' => $request->id_objek,
-            'id_objek_tipe' => $request->id_objek,
-            'file' => $file_name
+            'id_koneksi' => $request->id_koneksi,
+            'file' => $file_name,
         ];
         if(jenis_dokumen_m::create($data)){
             return [
@@ -79,9 +84,10 @@ class Jenis_Dokumen_Controller extends Controller
         $data = [
             'nama_surat' => $request->nama_surat,
             'id_objek' => $request->id_objek,
-            'file' => $file_name    
+            'id_koneksi' => $request->id_koneksi,
+            'file' => $file_name
         ];
-        $model = jenis_dokumen_m::findOrFail($id);
+        $model = jenis_dokumen_m::_dashboard()->findOrFail($id);
         if($model->update($data)){
             return [
                 'success' => true,
@@ -96,7 +102,7 @@ class Jenis_Dokumen_Controller extends Controller
     }
 
     public function delete($id){
-        $model = jenis_dokumen_m::find($id);
+        $model = jenis_dokumen_m::_dashboard()->find($id);
         if($model){
             if($model->delete()){
                 return [

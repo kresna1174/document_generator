@@ -1,5 +1,6 @@
 <div class="form-group">
     <label>Nama Surat</label>
+    {!! Form::hidden('id_koneksi', $row->id_koneksi, ['class' => 'form-control', 'id' => 'id_koneksi']) !!}
     {!! Form::text('nama_surat', null, ['class' => 'form-control', 'id' => 'nama_surat']) !!}
 </div>
 <div class="form-group">

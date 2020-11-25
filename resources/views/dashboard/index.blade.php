@@ -46,9 +46,8 @@
               {data: 'nama_surat', name: 'nama_surat'},
               {data: 'judul', name: 'judul'},
               {data: 'objek', name: 'objek'},
-              {data: 'id',width: '225px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
+              {data: 'id',width: '180px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
                   return '<button type="button" class="btn btn-info btn-sm" onclick="view('+data+')">view</button> \n\
-                        <button type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
                         <button type="button" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</button>\n\
                         <a type="button" href="<?= route('dashboard.download') ?>/'+data+'" class="btn btn-primary btn-sm">download</a>';
               }},
@@ -61,53 +60,9 @@
             url: '<?= route('dashboard.view') ?>/'+id,
             success: function(response){
                 bootbox.dialog({
-                    title: 'view',
+                    title: 'view dashboard',
                     message: response
                 });
-            }
-          });
-      }
-
-    function edit(id){
-          $.ajax({
-            url: '<?= route('dashboard.edit') ?>/'+id,
-            success: function(response){
-                bootbox.dialog({
-                    title: 'edit',
-                    message: response
-                });
-            }
-          });
-      }
-
-    function update(id){
-          $.ajax({
-            url: '<?= route('dashboard.update') ?>/'+id,
-            dataType: 'json',
-            type: 'post',
-            data: $('#form_dashboard').serialize(),
-            success: function(response){
-                if(response.success){
-                    Swal.fire({
-                        title: 'update',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        message: response,
-                        html: '<a href="<?= route('dashboard.view_doc') ?>" class="btn btn-primary mt-3">oke</a>'
-                    });
-                    bootbox.hideAll();
-                    dataTable.ajax.reload();
-                }else{
-                    Swal.fire({
-                        title: 'update',
-                        icon: 'error',
-                        message: response
-                    });
-                }
-            },
-            error: function(xhr){
-                var response = JSON.parse(xhr.responseText);
-                $('#form_dashboard').prepend(validation(response));
             }
           });
       }
@@ -128,14 +83,14 @@
                     success: function(response) {
                         dataTable.ajax.reload();
                     Swal.fire({
-                        title : 'Terhapus!',
+                        title : 'Data berhasil di hapus!',
                         icon: 'success',
                             text: response.message,
                     })
                         },
                         error: function(){
                             Swal.fire({
-                                title: 'Error!',
+                                title: 'Data gagal di hapus!',
                                 text: response.message,
                                 type: 'error'
                             })

@@ -13,6 +13,7 @@
             <tr>
                 <th>Nama Surat</th>
                 <th>Objek</th>
+                <th>File</th>
                 <th></th>
             </tr>
         </thead>
@@ -41,6 +42,7 @@
           columns:[
               {data: 'nama_surat', name: 'nama_surat'},
               {data: 'objek', name: 'objek'},
+              {data: 'file', name: 'file'},
               {data: 'id', name:'objek.id', width: '100px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
                   return '<button class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
                         <button class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</button>';
@@ -54,7 +56,7 @@
             url: '<?= route('jenis_dokumen.edit') ?>/'+id,
             success: function(response){
                 bootbox.dialog({
-                    title: 'edit',
+                    title: 'edit jenis surat',
                     message: response
                 });
             }
@@ -67,7 +69,7 @@
             url: '<?= route('jenis_dokumen.create') ?>',
             success: function(response){
               bootbox.dialog({
-                title: 'create',
+                title: 'create jenis surat',
                 message: response
               });
             }
@@ -89,13 +91,13 @@
             success: function(response){
                 if(response.success){
                     Swal.fire({
-                        title: 'Store',
+                        title: 'Store berhasil',
                         message: response,
                         icon: 'success'
                     });
                 }else{
                     Swal.fire({
-                        title: 'Store',
+                        title: 'Store gagal',
                         message: response,
                         icon: 'error'
                     });
@@ -125,13 +127,13 @@
             success: function(response){
                 if(response.success){
                     Swal.fire({
-                        title: 'update',
+                        title: 'Update berhasil',
                         message: response,
                         icon: 'success'
                     });
                 }else{
                     Swal.fire({
-                        title: 'update',
+                        title: 'Update gagal',
                         message: response,
                         icon: 'error'
                     });
@@ -163,14 +165,14 @@
                     success: function(response) {
                         dataTable.ajax.reload();
                     Swal.fire({
-                        title : 'Terhapus!',
+                        title : 'Data berhasil di hapus!',
                         icon: 'success',
                             text: response.message,
                     })
                         },
                         error: function(){
                             Swal.fire({
-                                title: 'Error!',
+                                title: 'Data gagal dihapus!',
                                 text: response.message,
                                 type: 'error'
                             })
