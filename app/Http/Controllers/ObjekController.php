@@ -28,9 +28,7 @@ class ObjekController extends Controller
         $objek = objek_m::get('id');
         $nama_db = koneksi_m::pluck('judul', 'id');
         $objek_tipe = objek_tipe_m::pluck('objek_tipe', 'id');
-        foreach($objek as $row){
-            return view('master.objek.create', compact('model', 'objek_tipe', 'nama_db', 'row'));
-        }
+        return view('master.objek.create', compact('model', 'objek_tipe', 'nama_db'));
     }
 
     public function edit($id){

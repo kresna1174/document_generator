@@ -29,7 +29,7 @@ class Jenis_Dokumen_Controller extends Controller
     public function edit($id){
         $objek = objek_m::pluck('objek', 'id');
         $model = jenis_dokumen_m::_dashboard()->findOrFail($id);
-            return view('master.jenis_dokumen.edit',compact('model', 'objek'));
+        return view('master.jenis_dokumen.edit',compact('model', 'objek'));
     }
 
     public function store(Request $request){

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Cetak extends Migration
+class CetakDoc extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class Cetak extends Migration
      */
     public function up()
     {
-        Schema::create('jenis_dokumen', function (Blueprint $table) {
+        Schema::create('cetak', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('input_key', 64);
             $table->string('file_cetak', 64);
