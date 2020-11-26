@@ -86,7 +86,6 @@ class CetakController extends Controller
             }
         }
         $file_upload = $template->saveAs(Storage::path('public/cetak/'.$jenis_dokumen->file));
-        // $file_upload = response()->download(Storage::path('public/cetak/'.$jenis_dokumen->file));
         $isi = [
             'file_cetak' => $jenis_dokumen->file,
             'input_key' => $request->key
