@@ -54,7 +54,7 @@
                             title: 'Store sukses',
                             icon: 'success',
                             showConfirmButton: false,
-                            html: '<a href="{!! route('cetak.download') !!}" class="btn btn-primary">Download</a>'
+                            html: '<a href="{!! route('cetak.download') !!}/'+id+'" class="btn btn-primary">Download</a>'
                         });
                         bootbox.hideAll();
                         get();
