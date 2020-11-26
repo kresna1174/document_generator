@@ -25,6 +25,7 @@ class ObjekController extends Controller
     
     public function create(){
         $model = objek_m::_koneksi()->get();
+        $objek = objek_m::get('id');
         $nama_db = koneksi_m::pluck('judul', 'id');
         $objek_tipe = objek_tipe_m::pluck('objek_tipe', 'id');
         return view('master.objek.create', compact('model', 'objek_tipe', 'nama_db'));
@@ -43,6 +44,7 @@ class ObjekController extends Controller
     }
 
     public function store(Request $request){
+       
         $rules = self::validasi($request->all());
         $messages = self::validasi_message($request->all());
         $validator = Validator::make($request->all(), $rules, $messages);
