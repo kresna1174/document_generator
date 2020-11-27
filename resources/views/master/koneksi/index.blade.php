@@ -135,24 +135,24 @@
           	}).then((result) => {
             	if (result.value) {         
                 	$.ajax({
-                  	url: '<?= route('koneksi.delete') ?>/'+id,
-                  	success: function(response) {
-                  	dataTable.ajax.reload();
-                    	Swal.fire({
-                      	title : 'Data berhasil di hapus!',
-                      	icon: 'success',
-                      	text: response.message,
-                    	})
-                  	},
-                  	error: function(){
-                    	Swal.fire({
-                      	title: 'Data gagal di hapus!',
-                      	text: response.message,
-                      	type: 'error'
-                    	})
-                  	}        
-                	});
-              	get();
+						url: '<?= route('koneksi.delete') ?>/'+id,
+						success: function(response){
+							if(response.success){
+								Swal.fire({
+									title : 'Data berhasil di hapus!',
+									icon: 'success',
+									text: response.message
+								});
+							}else{
+								Swal.fire({
+									title : 'Data gagal di hapus!',
+									icon: 'error',
+									text: response.message
+								});
+							}
+						}
+					});
+					get();
             	}else if (result.dismiss === Swal.DismissReason.cancel) {
                 	Swal.fire(
                 	'Cancelled',

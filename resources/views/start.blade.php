@@ -18,7 +18,7 @@
             margin-top: 25vh !important;
         }
     </style>
-            <img src="{!! asset('template') !!}/img/login-bg.jpeg" class="text-left" width="60%" height="645vh">
+            <img src="{!! asset('template') !!}/img/login-bg.jpeg" class="text-left" width="60%" height="100%">
 
             <div class="text-center float-right mr-5 mt-5 my-style">
                 <h1>Document Generator</h1><br><br>
