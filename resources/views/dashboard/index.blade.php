@@ -68,43 +68,44 @@
       }
 
       function destroy(id){
-        Swal.fire({
-            title: 'Delete',
-            text: 'Apakah anda yakin akan menghapus data ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#929ba1',
-            confirmButtonText: 'Oke'
-            }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    url: '<?= route('dashboard.delete') ?>/'+id,
-                    success: function(response) {
-                        dataTable.ajax.reload();
-                    Swal.fire({
-                        title : 'Data berhasil di hapus!',
-                        icon: 'success',
-                            text: response.message,
-                    })
-                        },
-                        error: function(){
-                            Swal.fire({
-                                title: 'Data gagal di hapus!',
-                                text: response.message,
-                                type: 'error'
-                            })
-                        }
-                    });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire(
-            'Cancelled',
-            'Data tidak jadi dihapus',
-            'error'
-            )
-        }
-    });
-      }
+    		Swal.fire({
+          	title: 'Delete',
+          	text: 'Apakah anda yakin akan menghapus data ini?',
+          	icon: 'warning',
+          	showCancelButton: true,
+          	confirmButtonColor: '#d33',
+          	cancelButtonColor: '#929ba1',
+          	confirmButtonText: 'Oke'
+          	}).then((result) => {
+            	if (result.value) {         
+                	$.ajax({
+						url: '<?= route('dashboard.delete') ?>/'+id,
+						success: function(response){
+							if(response.success){
+								Swal.fire({
+									title : 'Data berhasil di hapus!',
+									icon: 'success',
+									text: response.message
+								});
+							}else{
+								Swal.fire({
+									title : 'Data gagal di hapus!',
+									icon: 'error',
+									text: response.message
+								});
+							}
+						}
+					});
+					dataTable.ajax.reload();
+            	}else if (result.dismiss === Swal.DismissReason.cancel) {
+                	Swal.fire(
+                	'Cancelled',
+                	'Data tidak jadi dihapus',
+                	'error'
+              		)
+            	}
+        	});
+		  }
 
       function validation(errors){
             var html_row = '<div class="alert alert-danger">';

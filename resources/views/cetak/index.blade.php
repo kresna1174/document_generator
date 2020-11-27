@@ -34,7 +34,7 @@
                 url: '<?= route('cetak.create') ?>/'+id,
                 success: function(response){
                     bootbox.dialog({
-                        title: 'create',
+                        title: 'Cetak',
                         message: response
                     })
                 }
@@ -62,7 +62,6 @@
                         Swal.fire({
                             title: 'Store gagal',
                             icon: 'error',
-                            // message: response
                         });
                     }
                 },

@@ -242,43 +242,43 @@
 
     function destroy(id){
         Swal.fire({
-            title: 'Delete',
-            text: 'Apakah anda yakin akan menghapus data ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#929ba1',
-            confirmButtonText: 'Oke'
-            }).then((result) => {
-            if (result.value) {
-                
+        title: 'Delete',
+        text: 'Apakah anda yakin akan menghapus data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#929ba1',
+        confirmButtonText: 'Oke'
+        }).then((result) => {
+            if (result.value) {         
                 $.ajax({
                     url: '<?= route('objek.delete') ?>/'+id,
-                    success: function(response) {
-                        dataTable.ajax.reload();
-                    Swal.fire({
-                        title : 'Terhapus!',
-                        icon: 'success',
-                            text: response.message,
-                    })
-                        },
-                        error: function(){
+                    success: function(response){
+                        if(response.success){
                             Swal.fire({
-                                title: 'Error!',
-                                text: response.message,
-                                type: 'error'
-                            })
+                                title : 'Data berhasil di hapus!',
+                                icon: 'success',
+                                text: response.message
+                            });
+                        }else{
+                            Swal.fire({
+                                title : 'Data gagal di hapus!',
+                                icon: 'error',
+                                text: response.message
+                            });
                         }
-                    });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire(
-            'Cancelled',
-            'Data tidak jadi dihapus',
-            'error'
-            )
+                    }
+                });
+                dataTable.ajax.reload();
+            }else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                'Cancelled',
+                'Data tidak jadi dihapus',
+                'error'
+                )
+            }
+        });
         }
-    });
-}
 
     function errormessage(errors){
         var validations = '<div class="alert alert-danger">';
