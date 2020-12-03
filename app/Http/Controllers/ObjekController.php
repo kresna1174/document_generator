@@ -54,7 +54,23 @@ class ObjekController extends Controller
                 'errors' => $validator->messages()
             ], 400);
         }
-        if(Objek_m::create($request->all())){
+        if($request->id_objek_tipe == 1){
+            $data = [
+                'objek' => $request->objek,
+                'id_koneksi' => $request->id_koneksi,
+                'id_objek_tipe' => $request->id_objek_tipe,
+                'nama_table' => $request->nama_table,
+                'nama_kolom' => $request->nama_kolom
+        ];
+    }else{
+        $data = [
+            'objek' => $request->objek,
+            'id_koneksi' => $request->id_koneksi,
+            'id_objek_tipe' => $request->id_objek_tipe,
+            'query' => $request->query
+    ];
+    }
+        if(Objek_m::create($data)){
             return [
                 'success' => true,
                 'message' => 'Data Berhasil Di Tambahkan'
@@ -78,7 +94,23 @@ class ObjekController extends Controller
             ], 400);
         }
         $model = Objek_m::findOrFail($id);
-        if($model->update($request->all())){
+        if($request->id_objek_tipe == 1){
+            $data = [
+                'objek' => $request->objek,
+                'id_koneksi' => $request->id_koneksi,
+                'id_objek_tipe' => $request->id_objek_tipe,
+                'nama_table' => $request->nama_table,
+                'nama_kolom' => $request->nama_kolom
+        ];
+    }else{
+        $data = [
+            'objek' => $request->objek,
+            'id_koneksi' => $request->id_koneksi,
+            'id_objek_tipe' => $request->id_objek_tipe,
+            'query' => $request->query
+    ];
+    }
+        if($model->update($data)){
             return [
                 'success' => true,
                 'message' => 'Data Berhasil Di Update'
