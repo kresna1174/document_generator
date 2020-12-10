@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('title')
-<h4>Master Objek</h4>
-    <button type="button" onclick="create()" class="ml-1 mb-2 btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></button>
+    <h4>Master Objek</h4>
+    <button id="btn-crt" type="button" onclick="create()" class="ml-1 mb-2 btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></button>
 @endsection
 @section('content')
 <div class="container mt-5 pb-5">
@@ -28,35 +28,35 @@
 @endsection
 @section('js')
 <script>
-
     $(function(){
         datatable();
     });
 
     var dataTable;
     function datatable(){
-      dataTable =  $('#table').DataTable({
-          reponsive:true,
-          jQueryUI: true,
-          processing: true,
-          serverSide: true,
-          ajax: '<?= route('objek.get_data') ?>',
-          columns:[
-              {data: 'objek', name: 'objek'},
-              {data: 'judul', name: 'judul'},
-              {data: 'objek_tipe', name: 'objek_tipe'},
-              {data: 'nama_table', name: 'nama_table'},
-              {data: 'nama_kolom', name: 'nama_kolom'},
-              {data: 'id', name:'objek.id', width: '150px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
-                  return '<button type="button" class="btn btn-info btn-sm" onclick="view('+data+')">view</button> \n\
-                   <button type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
-                  <button type="button" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</button>';
-              }}
-          ]
+        dataTable =  $('#table').DataTable({
+            reponsive:true,
+            jQueryUI: true,
+            processing: true,
+            serverSide: true,
+            ajax: '<?= route('objek.get_data') ?>',
+            columns:[
+                {data: 'objek', name: 'objek'},
+                {data: 'judul', name: 'judul'},
+                {data: 'objek_tipe', name: 'objek_tipe'},
+                {data: 'nama_table', name: 'nama_table'},
+                {data: 'nama_kolom', name: 'nama_kolom'},
+                {data: 'id', name:'objek.id', width: '150px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
+                    return '<button id="btn-vw" type="button" class="btn btn-info btn-sm" onclick="view('+data+')">view</button> \n\
+                            <button id="btn-edt" type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
+                            <button type="button" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</button>';
+                }}
+            ]
       }); 
     }
     
     function create(){
+        $('#btn-crt').prop('disabled', true);
         $.ajax({
             url: '<?= route('objek.create') ?>',
             success: function(response){
@@ -65,11 +65,14 @@
                     message: response
                 });
             }
+        }).done(function() {
+            $('#btn-crt').prop('disabled', false);
         });
     }
 
     function store(){
         $('#form_objek .alert').remove();
+        $('#btn-str').prop('disabled', true);
         $.ajax({
             url: '<?= route('objek.store') ?>',
             dataType: 'json',
@@ -84,6 +87,7 @@
                     confirmButtonColor: '#2c91fb',
                     confirmButtonText: 'Oke'
                     });
+                    $("#btn-str").attr("disabled", false);
                 }else{
                     Swal.fire({
                     title: 'Store gagal',
@@ -100,11 +104,14 @@
                 var response = JSON.parse(xhr.responseText);
                 $('#form_objek').prepend(errormessage(response));
             }
+        }).done(function() {
+            $('#btn-str').prop('disabled', false);
         });
     }
 
     function update(id){
         $('#form_objek .alert').remove();
+        $('#btn-updt').prop('disabled', true);
         $.ajax({
             url: '<?= route('objek.update') ?>/'+id,
             dataType: 'json',
@@ -132,13 +139,16 @@
                 dataTable.ajax.reload();
             },
             error: function(xhr, ajaxOptions, thrownError){
-                var response = JSON.parse(xhr.responseText);
-                $('#form_objek').prepend(errormessage(response));
+            var response = JSON.parse(xhr.responseText);
+            $('#form_objek').prepend(errormessage(response));
             }
+        }).done(function() {
+            $('#btn-updt').prop('disabled', false);
         });
     }
 
     function edit(id){
+        $('#btn-edt').prop('disabled', true);
         $.ajax({
             url: '<?= route('objek.edit') ?>/'+id,
             success: function(response){
@@ -148,10 +158,13 @@
                 });
             get_objek_tipe();
             }
+        }).done(function() {
+            $('#btn-edt').prop('disabled', false);
         });
     }
 
     function view(id){
+        $('#btn-vw').prop('disabled', true);
         $.ajax({
             url: '<?= route('objek.view') ?>/'+id,
             success: function(response){
@@ -160,7 +173,9 @@
                     message: response
                 });
             }
-        })
+        }).done(function() {
+            $('#btn-vw').prop('disabled', false);
+        });
     }
 
     function get_objek_tipe(){
@@ -183,8 +198,6 @@
                 html_row += '<input type="text" name="nama_kolom" value="'+nama_kolom+'" class="form-control">';
                 html_row += '</div>';
                 html_row += '</div>';
-                // console.log(html_row);
-
             $('.form .bungkus').append(html_row);
         } else if (value == 2 || value == 'query') {
             var query = $('#query').val();
@@ -200,16 +213,16 @@
                 html_row += '</div>';
                 html_row += '</div>';
             $('.form .bungkus').append(html_row);
-                }
-            }
+        }
+    }
 
     function get_value(){
-            var value = $('#objek_tipe').val();
+        var value = $('#objek_tipe').val();
             if (value == 1 || value == 'table') {
                 var bungkus = $('.bungkus').children();
-                if(bungkus.length == 1){
-                    $('.bungkus').children().remove();
-                }
+                    if(bungkus.length == 1){
+                        $('.bungkus').children().remove();
+                    }
                 var html_row;
                     html_row = '<div class="table">';
                     html_row += '<div class="form-group">';
@@ -221,13 +234,12 @@
                     html_row += '<input type="text" name="nama_kolom" class="form-control">';
                     html_row += '</div>';
                     html_row += '</div>';
-
                 $('.form .bungkus').append(html_row);
             } else if (value == 2 || value == 'query') {
                 var bungkus = $('.bungkus').children();
-                if(bungkus.length == 1){
-                    $('.bungkus').children().remove();
-                }
+                    if(bungkus.length == 1){
+                        $('.bungkus').children().remove();
+                    }
                 var id_oke = $('#oke').val();
                 var html_row;
                     html_row = '<div class="query">';
@@ -237,8 +249,8 @@
                     html_row += '</div>';
                     html_row += '</div>';
                 $('.form .bungkus').append(html_row);
-                    }
-                }
+        }
+    }
 
     function destroy(id){
         Swal.fire({
