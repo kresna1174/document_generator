@@ -22,10 +22,29 @@ class ObjekController extends Controller
         ->make(true);
         return view('master.objek.index');
     }
+
+    public function get_data_all(){
+        
+    }
+
+    public function get_koneksi($id){
+        $koneksi = koneksi_m::findOrFail($id);
+        config(['database.connections.objek' => [
+            'driver'  => 'mysql',
+            'host' => $koneksi->host,
+            'port' => $koneksi->port,
+            'database' => $koneksi->nama_db,
+            'username' => $koneksi->username,
+            'password' => $koneksi->password
+        ]]);
+        $db_objek = \DB::connection('objek');
+        $get_table = $db_objek->select('SHOW TABLES FROM '.$koneksi->nama_db.' ');
+        $koneksi_db = 'Tables_in_'.$koneksi->nama_db;
+        return view('master.objek.get_koneksi', compact('get_table', 'koneksi_db', 'db_objek'));
+    }
     
     public function create(){
         $model = objek_m::_koneksi()->get();
-        $objek = objek_m::get('id');
         $nama_db = koneksi_m::pluck('judul', 'id');
         $objek_tipe = objek_tipe_m::pluck('objek_tipe', 'id');
         return view('master.objek.create', compact('model', 'objek_tipe', 'nama_db'));

@@ -5,7 +5,7 @@
     </div>
     <div class="form-group">
         <label>Koneksi</label>
-        {!! Form::select('id_koneksi', [''=>'select'] + $nama_db->toArray(), null, ['class' => 'form-control']) !!}
+        {!! Form::select('id_koneksi', [''=>'select'] + $nama_db->toArray(), null, ['class' => 'form-control', 'id' => 'id_koneksi', 'onchange' => 'get_koneksi()']) !!}
     </div>
     <div class="form-group">
         <label>Objek Tipe</label>
@@ -20,4 +20,18 @@
         {!! Form::hidden('query', null, ['class' => 'form-control', 'id' => 'query']) !!}
     <div class="bungkus">
     </div>
+</div>
+
+<div class="table" style="overflow-y: scroll; height: 50vh">
+    <table id="table-list" class="table table-bordered table-consoned table-striped">
+        <thead>
+            <tr>
+                <th>Nama Table</th>
+                <th>Nama Kolom</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
 </div>
