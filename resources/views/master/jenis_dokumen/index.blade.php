@@ -76,7 +76,7 @@
                     title: 'edit jenis surat',
                     message: response
                 });
-                dataTable.ajax.reload();
+                get_koneksi();
             }
         }).done(function() {
             $('#btn-edt').prop('disabled', false);
