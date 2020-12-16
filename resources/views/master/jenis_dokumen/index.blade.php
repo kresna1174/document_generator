@@ -201,7 +201,17 @@
     	});
 	}
 
-    function validation(errors){
+        function get_koneksi(){
+            var id = $('#id_objek').val();
+            $.ajax({
+                url: '<?= route('jenis_dokumen.get_koneksi') ?>/'+id,
+                success: function(response){
+                    $('#table-list tbody').html(response);
+                }
+            });
+        }
+
+      function validation(errors){
         var validation = '<div class="alert alert-danger">';
             validation += '<p><b>'+errors.message+'</b></p>';
             $.each(errors.errors, function(i, error){

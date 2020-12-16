@@ -49,6 +49,7 @@ Route::group(['prefix' => 'objek'], function(){
     Route::get('view/{id?}', 'ObjekController@view')->name('objek.view');
     Route::post('update/{id?}', 'ObjekController@update')->name('objek.update');
     Route::get('get_data', 'ObjekController@get_data')->name('objek.get_data');
+    Route::get('get_koneksi/{id?}', 'ObjekController@get_koneksi')->name('objek.get_koneksi');
 });
 
 Route::group(['prefix' => 'jenis_dokumen'], function(){
@@ -59,6 +60,7 @@ Route::group(['prefix' => 'jenis_dokumen'], function(){
     Route::get('edit/{id?}', 'Jenis_Dokumen_Controller@edit')->name('jenis_dokumen.edit');
     Route::post('update/{id?}', 'Jenis_Dokumen_Controller@update')->name('jenis_dokumen.update');
     Route::get('delete/{id?}', 'Jenis_Dokumen_Controller@delete')->name('jenis_dokumen.delete');
+    Route::get('get_koneksi/{id?}', 'Jenis_Dokumen_controller@get_koneksi')->name('jenis_dokumen.get_koneksi');
 });
 
 Route::group(['prefix' => 'cetak'], function(){
