@@ -60,7 +60,7 @@
                     title: 'create jenis surat',
                     message: response
                 });
-                dataTable.ajax.reload();
+            get_koneksi();
             }
         }).done(function() {
             $('#btn-crt').prop('disabled', false);
@@ -76,7 +76,7 @@
                     title: 'edit jenis surat',
                     message: response
                 });
-                dataTable.ajax.reload();
+                get_koneksi();
             }
         }).done(function() {
             $('#btn-edt').prop('disabled', false);
@@ -200,6 +200,16 @@
         	}
     	});
 	}
+
+        function get_koneksi(){
+            var id = $('#id_objek').val();
+            $.ajax({
+                url: '<?= route('jenis_dokumen.get_koneksi') ?>/'+id,
+                success: function(response){
+                    $('#table-list tbody').html(response);
+                }
+            });
+        }
 
         function get_koneksi(){
             var id = $('#id_objek').val();

@@ -33,7 +33,7 @@
             url: '<?= route('cetak.create') ?>/'+id,
             success: function(response){
                 bootbox.dialog({
-                    title: 'Cetak',                        message: response
+                    title: 'Cetak', message: response
                 })
             }
         }).done(function() {
