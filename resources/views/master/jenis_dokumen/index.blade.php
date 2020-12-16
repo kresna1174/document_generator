@@ -60,7 +60,7 @@
                     title: 'create jenis surat',
                     message: response
                 });
-                dataTable.ajax.reload();
+            get_koneksi();
             }
         }).done(function() {
             $('#btn-crt').prop('disabled', false);
