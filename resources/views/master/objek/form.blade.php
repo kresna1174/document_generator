@@ -5,7 +5,7 @@
     </div>
     <div class="form-group">
         <label>Koneksi</label>
-        {!! Form::select('id_koneksi', [''=>'select'] + $nama_db->toArray(), null, ['class' => 'form-control']) !!}
+        {!! Form::select('id_koneksi', [''=>'select'] + $nama_db->toArray(), null, ['class' => 'form-control', 'id' => 'id_koneksi', 'onchange' => 'get_koneksi()']) !!}
     </div>
     <div class="form-group">
         <label>Objek Tipe</label>
@@ -21,28 +21,17 @@
     <div class="bungkus">
     </div>
 </div>
-<table id="table-list" class="table table-bordered table-consoned">
-    <thead>
-        <tr>
-            <th>Nama Table</th>
-            <th>Nama Kolom</th>
-        </tr>
-    </thead>
-    <tbody>
 
-    </tbody>
-</table>
-<script>
-    $(function(){
-        $('#table-list').DataTable({
-            processing: true,
-            searchDelay: 1000,
-            serverSide: true,
-            ajax: '<?= route('objek.get_data') ?>',
-            columns:[
-                {data: 'nama_table', name: 'nama_table'},
-                {data: 'nama_kolom', name: 'nama_kolom'}
-            ]
-        });
-    });
-</script>
+<div class="table" style="overflow-y: scroll; height: 50vh">
+    <table id="table-list" class="table table-bordered table-consoned table-striped">
+        <thead>
+            <tr>
+                <th>Nama Table</th>
+                <th>Nama Kolom</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
