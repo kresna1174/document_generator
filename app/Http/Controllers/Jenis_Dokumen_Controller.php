@@ -26,6 +26,23 @@ class Jenis_Dokumen_Controller extends Controller
         return view('master.jenis_dokumen.create', compact('objek'));
     }
 
+    public function get_koneksi($id){
+        $objek = objek_m::findOrFail($id);
+        $koneksi = koneksi_m::findOrFail($objek->id_koneksi);
+        config(['database.connections.objek' => [
+            'driver'  => 'mysql',
+            'host' => $koneksi->host,
+            'port' => $koneksi->port,
+            'database' => $koneksi->nama_db,
+            'username' => $koneksi->username,
+            'password' => $koneksi->password
+        ]]);
+        $db_objek = \DB::connection('objek');
+        $koneksi_db = 'Tables_in_'.$koneksi->nama_db;
+        $get_table = $db_objek->select('SHOW TABLES FROM '.$koneksi->nama_db.' ');
+        return view('master.jenis_dokumen.get_koneksi', compact('get_table', 'koneksi_db', 'db_objek'));
+    }
+
     public function edit($id){
         $objek = objek_m::pluck('objek', 'id');
         $model = jenis_dokumen_m::_dashboard()->findOrFail($id);

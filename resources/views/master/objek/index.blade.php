@@ -70,6 +70,16 @@
         });
     }
 
+    function get_koneksi(){
+        var id = $('#id_koneksi').val();
+        $.ajax({
+            url: '<?= route('objek.get_koneksi') ?>/'+id,
+            success: function(response){
+                $('#form_objek #table-list tbody').html(response);
+            }
+        });
+    }
+
     function store(){
         $('#form_objek .alert').remove();
         $('#btn-store').prop('disabled', true);
@@ -156,6 +166,7 @@
                     message: response
                 });
             get_objek_tipe();
+            get_koneksi();
             }
         }).done(function() {
             $('#btn-edit').prop('disabled', false);
