@@ -60,7 +60,6 @@
                     title: 'create jenis surat',
                     message: response
                 });
-            get_koneksi();
             }
         }).done(function() {
             $('#btn-create').prop('disabled', false);
@@ -76,7 +75,7 @@
                     title: 'edit jenis surat',
                     message: response
                 });
-                dataTable.ajax.reload();
+                get_koneksi();
             }
         }).done(function() {
             $('#btn-edit').prop('disabled', false);
