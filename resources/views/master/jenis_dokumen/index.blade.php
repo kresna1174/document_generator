@@ -52,7 +52,6 @@
     }
 
     function create(){
-        $('#btn-create').prop('disabled', true);
         $.ajax({
             url: '<?= route('jenis_dokumen.create') ?>',
             success: function(response){
@@ -61,13 +60,10 @@
                     message: response
                 });
             }
-        }).done(function() {
-            $('#btn-create').prop('disabled', false);
-        });
+        })
       }
 
     function edit(id){
-        $('#btn-edit').prop('disabled', true);
         $.ajax({
             url: '<?= route('jenis_dokumen.edit') ?>/'+id,
             success: function(response){
@@ -77,16 +73,14 @@
                 });
                 get_koneksi();
             }
-        }).done(function() {
-            $('#btn-edit').prop('disabled', false);
-        });
+        })
     }
 
     function store(){
         $('#form_jenis_dokumen .alert').remove();
+        $('#form_jenis_dokumen').blockUI();
         var form = $('#form_jenis_dokumen')[0];
         var formData = new FormData(form);
-        $('#btn-store').prop('disabled', true);
         $.ajax({
             url: '<?= route('jenis_dokumen.store') ?>',
             dataType:'json',
@@ -97,35 +91,25 @@
             data: formData,
             success: function(response){
                 if(response.success){
-                    Swal.fire({
-                        title: 'Store berhasil',
-                        message: response,
-                        icon: 'success'
-                    });
+                    $.growl.notice({message: 'Store berhasil'});
                 }else{
-                    Swal.fire({
-                        title: 'Store gagal',
-                        message: response,
-                        icon: 'error'
-                    });
+                    $.growl.error({message: 'Store gagal'});
                 }
-                dataTable.ajax.reload();
                 bootbox.hideAll();
+                dataTable.ajax.reload();
             },
             error: function(xhr, ajaxOptions, thrownError){
             var response = JSON.parse(xhr.responseText);
             $('#form_jenis_dokumen').prepend(validation(response));
             }
-        }).done(function() {
-            $('#btn-store').prop('disabled', false);
-        });
+        })
+        $('#form_jenis_dokumen').unblock();
       }
 
     function update(id){
         $('#form_jenis_dokumen .alert').remove();
         var form = $('#form_jenis_dokumen')[0];
         var formData = new FormData(form);
-        $('#btn-update').prop('disabled', true);
         $.ajax({
             url: '<?= route('jenis_dokumen.update') ?>/'+id,
             dataType:'json',
@@ -136,17 +120,9 @@
             data: formData,
             success: function(response){
                 if(response.success){
-                    Swal.fire({
-                        title: 'Update berhasil',
-                        message: response,
-                        icon: 'success'
-                    });
+                    $.growl.notice({message: 'Update berhasil'});
                 }else{
-                    Swal.fire({
-                        title: 'Update gagal',
-                        message: response,
-                        icon: 'error'
-                    });
+                    $.growl.error({message: 'Update gagal'});
                 }
                 bootbox.hideAll();
                 dataTable.ajax.reload();
@@ -155,9 +131,7 @@
             var response = JSON.parse(xhr.responseText);
             $('#form_jenis_dokumen').prepend(validation(response));
             }
-        }).done(function() {
-            $('#btn-update').prop('disabled', false);
-        });
+        })
     }
 
     function destroy(id){
@@ -175,28 +149,14 @@
 					url: '<?= route('jenis_dokumen.delete') ?>/'+id,
 					success: function(response){
 						if(response.success){
-							Swal.fire({
-								title : 'Data berhasil di hapus!',
-								icon: 'success',
-								text: response.message
-							});
+							$.growl.notice({message: 'Data berhasil dihapus!'});
+                            dataTable.ajax.reload();
 						}else{
-							Swal.fire({
-								title : 'Data gagal di hapus!',
-								icon: 'error',
-								text: response.message
-							});
+							$.growl.error({message: 'Data gagal dihapus!'});
 						}
 					}
 				});
-				dataTable.ajax.reload()
-            }else if (result.dismiss === Swal.DismissReason.cancel) {
-            	Swal.fire(
-            	'Cancelled',
-            	'Data tidak jadi dihapus',
-            	'error'
-          		)
-        	}
+            }
     	});
 	}
 

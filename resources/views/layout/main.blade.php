@@ -14,7 +14,7 @@
   <!-- <link href="{!! asset('sweetalert') !!}/dist/sweetalert.css" rel="stylesheet"> -->
   <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="{!! asset('template') !!}/datatable/Button/css/buttons.bootstrap4.min.css" rel="stylesheet">
-  <!-- <link href="{!! asset('jquery.growl') !!}/css/jquery.growl.css" rel="stylesheet"> -->
+  <link href="{!! asset('jquery.growl') !!}/css/jquery.growl.css" rel="stylesheet">
   <link href="{!! asset('template') !!}/datatable/DataTables/css/dataTables.responsive.min.css" rel="stylesheet">
   <link href="{!! asset('template') !!}/css/style.css" rel="stylesheet">
 </head>
@@ -65,9 +65,8 @@
 <script src="{!! asset('template') !!}/datatable/DataTables/js/dataTables.bootstrap.min.js"></script> 
 <script src="{!! asset('template') !!}/datatable/DataTables/js/dataTables.bootstrap4.min.js"></script>
 <script src="{!! asset('sweetalert') !!}/sweet.min.js"></script>
-<!-- <script src="{!! asset('sweetalert') !!}/dist/sweetalert-dev.js"></script> -->
-<!-- <script src="{!! asset('jquery.growl') !!}/js/jquery.growl.js"></script> -->
-<!-- <script src="{!! asset('template') !!}/datatable/Button/js/dataTables.buttons.min.js"></script> -->
+<script src="{!! asset('blockui') !!}/blockui.js"></script>
+<script src="{!! asset('jquery.growl') !!}/js/jquery.growl.js"></script>
 <script src="{!! asset('template') !!}/datatable/JSZip/jszip.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/pdfmake/pdfmake.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/pdfmake/vfs_fonts.js"></script>
@@ -76,6 +75,7 @@
 <script src="{!! asset('template') !!}/datatable/DataTables/js/dataTables.searchPanes.min.js"></script>
 <script src="{!! asset('template') !!}/datatable/DataTables/js/dataTables.scroller.min.js"></script>
   @yield('js')
+<script src="{!! asset('js') !!}/build.js"></script>
 </body>
 
 </html>

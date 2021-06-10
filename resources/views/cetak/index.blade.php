@@ -28,7 +28,6 @@
     }
         
     function create(id){
-        $('#btn-create').prop('disabled', true);
         $.ajax({
             url: '<?= route('cetak.create') ?>/'+id,
             success: function(response){
@@ -37,14 +36,12 @@
                     message: response
                 })
             }
-        }).done(function() {
-            $('#btn-create').prop('disabled', false);
-        });
+        })
     }
 
     function store(id){
         $('#form_cetak .alert').remove();
-        $('#btn-store').prop('disabled', true);
+        $('#form_cetak').blockUI();
         $.ajax({
             url: '<?= route('cetak.store') ?>/'+id,
             dataType: 'json',
@@ -71,9 +68,8 @@
             var response = JSON.parse(xhr.responseText);
             $('#form_cetak').prepend(validation(response));
             }
-        }).done(function() {
-            $('#btn-store').prop('disabled', false);
-        });
+        })
+        $('#form_cetak').unblock();
     }
 
 

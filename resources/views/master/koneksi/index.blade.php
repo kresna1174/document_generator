@@ -15,7 +15,6 @@
 @section('js')
 <script>
     function create(){
-		$('#btn-create').prop('disabled', true);
 		$.ajax({
 			url: '<?= route('koneksi.create') ?>',
 			success: function(response){
@@ -24,9 +23,7 @@
 					message: response
 				});
 			}
-		}).done(function() {
-            $('#btn-create').prop('disabled', false);
-        });
+		})
   	}
 
     $(function(){
@@ -43,7 +40,6 @@
     }
 
     function edit(id){
-		$('#btn-edit').prop('disabled', true);
     	$.ajax({
         	url: '<?= route('koneksi.edit') ?>/'+id,
         	success: function(response){
@@ -52,52 +48,12 @@
                 	message: response
               	});
           	}
-        }).done(function() {
-			$('#btn-edit').prop('disabled', false);
-		});
+        })
   	}
-
-    function update(id){
+	
+	function store(){
 		$('#form_koneksi .alert').remove();
-		$('#btn-update').prop('disabled', true);
-    	$.ajax({
-	      	url: '<?= route('koneksi.update') ?>/'+id,
-          	dataType: 'json',
-          	type: 'post',
-          	data: $('#form_koneksi').serialize(),
-          	success: function(response){
-            	if(response.success){
-                    Swal.fire({
-                    title: 'Update berhasil',
-                    text: response.message,
-                    icon: 'success',
-                    confirmButtonColor: '#2c91fb',
-                    confirmButtonText: 'Oke'
-                    });
-                }else{
-                    Swal.fire({
-                    title: 'Update gagal',
-                    text: response.message,
-                    icon: 'error',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'Oke'
-                    });
-                }
-            	bootbox.hideAll();
-        		get();
-            },
-            error: function(xhr, ajaxOptions, thrownError){
-            	var response = JSON.parse(xhr.responseText);
-            	$('#form_koneksi').prepend(validation(response));
-        	}
-        }).done(function() {
-			$('#btn-update').prop('disabled', false);
-		});
-    }
-
-    function store(){
-		$('#form_koneksi .alert').remove();
-		$("#btn-store").attr("disabled", true);
+		$('#form_koneksi').blockUI();
         $.ajax({
           	url: '<?= route('koneksi.store') ?>',
           	dataType: 'json',
@@ -105,22 +61,9 @@
           	data: $('#form_koneksi').serialize(),
           	success: function(response){
             	if(response.success){
-                    Swal.fire({
-                    title: 'Store berhasil',
-                    text: response.message,
-                    icon: 'success',
-                    confirmButtonColor: '#2c91fb',
-                    confirmButtonText: 'Oke'
-					});
-					$("#btn-str").attr("disabled", false);
+                    $.growl.notice({message: 'Store berhasil'});
                 }else{
-                    Swal.fire({
-                    title: 'Store gagal',
-                    text: response.message,
-                    icon: 'error',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'Oke'
-                    });
+                    $.growl.error({message: 'Store gagal'});
                 }
                 bootbox.hideAll();
                 get();
@@ -129,9 +72,31 @@
             	var response = JSON.parse(xhr.responseText);
             	$('#form_koneksi').prepend(validation(response));
         	}
-        }).done(function() {
-            $('#btn-store').prop('disabled', false);
-        });
+        })
+		$('#form_koneksi').unblock();
+    }
+
+    function update(id){
+		$('#form_koneksi .alert').remove();
+    	$.ajax({
+	      	url: '<?= route('koneksi.update') ?>/'+id,
+          	dataType: 'json',
+          	type: 'post',
+          	data: $('#form_koneksi').serialize(),
+          	success: function(response){
+				if(response.success){
+                    $.growl.notice({message: 'Update berhasil'});
+                }else{
+                    $.growl.error({message: 'Update gagal'});
+                }
+                bootbox.hideAll();
+        		get();
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+            	var response = JSON.parse(xhr.responseText);
+            	$('#form_koneksi').prepend(validation(response));
+        	}
+        })
     }
 
     function destroy(id){
@@ -149,28 +114,14 @@
 					url: '<?= route('koneksi.delete') ?>/'+id,
 					success: function(response){
 						if(response.success){
-							Swal.fire({
-								title : 'Data berhasil di hapus!',
-								icon: 'success',
-								text: response.message
-							});
+							$.growl.notice({message: 'Data berhasil dihapus!'});
+							get();
 						}else{
-							Swal.fire({
-								title : 'Data gagal di hapus!',
-								icon: 'error',
-								text: response.message
-							});
+							$.growl.error({message: 'Data gagal dihapus!'});
 						}
 					}
 				});
-				get();
-            }else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(
-            	'Cancelled',
-            	'Data tidak jadi dihapus',
-            	'error'
-          		)
-        	}
+            }
         });
 	}
 		  

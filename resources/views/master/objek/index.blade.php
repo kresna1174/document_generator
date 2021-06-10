@@ -56,7 +56,6 @@
     }
     
     function create(){
-        $('#btn-create').prop('disabled', true);
         $.ajax({
             url: '<?= route('objek.create') ?>',
             success: function(response){
@@ -65,99 +64,10 @@
                     message: response
                 });
             }
-        }).done(function() {
-            $('#btn-create').prop('disabled', false);
-        });
-    }
-
-    function get_koneksi(){
-        var id = $('#id_koneksi').val();
-        $.ajax({
-            url: '<?= route('objek.get_koneksi') ?>/'+id,
-            success: function(response){
-                $('#form_objek #table-list tbody').html(response);
-            }
-        });
-    }
-
-    function store(){
-        $('#form_objek .alert').remove();
-        $('#btn-store').prop('disabled', true);
-        $.ajax({
-            url: '<?= route('objek.store') ?>',
-            dataType: 'json',
-            type: 'post',
-            data: $('#form_objek').serialize(),
-            success: function(response){
-                if(response.success){
-                    Swal.fire({
-                    title: 'Store berhasil',
-                    text: response.message,
-                    icon: 'success',
-                    confirmButtonColor: '#2c91fb',
-                    confirmButtonText: 'Oke'
-                    });
-                }else{
-                    Swal.fire({
-                    title: 'Store gagal',
-                    text: response.message,
-                    icon: 'error',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'Oke'
-                    });
-                }
-                bootbox.hideAll();
-                dataTable.ajax.reload();
-            },
-            error: function(xhr, ajaxOptions, thrownError){
-                var response = JSON.parse(xhr.responseText);
-                $('#form_objek').prepend(errormessage(response));
-            }
-        }).done(function() {
-            $('#btn-store').prop('disabled', false);
-        });
-    }
-
-    function update(id){
-        $('#form_objek .alert').remove();
-        $('#btn-update').prop('disabled', true);
-        $.ajax({
-            url: '<?= route('objek.update') ?>/'+id,
-            dataType: 'json',
-            type: 'post',
-            data: $('#form_objek').serialize(),
-            success: function(response){
-                if(response.success){
-                    Swal.fire({
-                    title: 'Update berhasil',
-                    text: response.message,
-                    icon: 'success',
-                    confirmButtonColor: '#2c91fb',
-                    confirmButtonText: 'Oke'
-                    });
-                }else{
-                    Swal.fire({
-                    title: 'Update gagal',
-                    text: response.message,
-                    icon: 'error',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'Oke'
-                    });
-                }
-                bootbox.hideAll();
-                dataTable.ajax.reload();
-            },
-            error: function(xhr, ajaxOptions, thrownError){
-            var response = JSON.parse(xhr.responseText);
-            $('#form_objek').prepend(errormessage(response));
-            }
-        }).done(function() {
-            $('#btn-update').prop('disabled', false);
-        });
+        })
     }
 
     function edit(id){
-        $('#btn-edit').prop('disabled', true);
         $.ajax({
             url: '<?= route('objek.edit') ?>/'+id,
             success: function(response){
@@ -168,13 +78,10 @@
             get_objek_tipe();
             get_koneksi();
             }
-        }).done(function() {
-            $('#btn-edit').prop('disabled', false);
-        });
+        })
     }
 
     function view(id){
-        $('#btn-view').prop('disabled', true);
         $.ajax({
             url: '<?= route('objek.view') ?>/'+id,
             success: function(response){
@@ -183,8 +90,80 @@
                     message: response
                 });
             }
-        }).done(function() {
-            $('#btn-view').prop('disabled', false);
+        })
+    }
+
+    function store(){
+        $('#form_objek .alert').remove();
+        $('#form_objek').blockUI();
+        $.ajax({
+            url: '<?= route('objek.store') ?>',
+            dataType: 'json',
+            type: 'post',
+            data: $('#form_objek').serialize(),
+            success: function(response){
+                if(response.success){
+                    $.growl.notice({message: 'Store berhasil'});
+                }else{
+                    $.growl.error({message: 'Store gagal'});
+                }
+                bootbox.hideAll();
+                dataTable.ajax.reload();
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                var response = JSON.parse(xhr.responseText);
+                $('#form_objek').prepend(errormessage(response));
+            }
+        })
+        $('#form_objek').unblock();
+    }
+
+    function update(id){
+        $('#form_objek .alert').remove();
+        $.ajax({
+            url: '<?= route('objek.update') ?>/'+id,
+            dataType: 'json',
+            type: 'post',
+            data: $('#form_objek').serialize(),
+            success: function(response){
+                if(response.success){
+                    $.growl.notice({message: 'Update berhasil'});
+                }else{
+                    $.growl.error({message: 'Update gagal'});
+                }
+                bootbox.hideAll();
+                dataTable.ajax.reload();
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+            var response = JSON.parse(xhr.responseText);
+            $('#form_objek').prepend(errormessage(response));
+            }
+        })
+    }
+
+    function destroy(id){
+        Swal.fire({
+        title: 'Delete',
+        text: 'Apakah anda yakin akan menghapus data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#929ba1',
+        confirmButtonText: 'Oke'
+        }).then((result) => {
+            if (result.value) {         
+                $.ajax({
+                    url: '<?= route('objek.delete') ?>/'+id,
+                    success: function(response){
+                        if(response.success){
+							$.growl.notice({message: 'Data berhasil dihapus!'});
+                            dataTable.ajax.reload();
+						}else{
+							$.growl.error({message: 'Data gagal dihapus!'});
+						}
+                    }
+                });
+            }
         });
     }
 
@@ -262,45 +241,15 @@
         }
     }
 
-    function destroy(id){
-        Swal.fire({
-        title: 'Delete',
-        text: 'Apakah anda yakin akan menghapus data ini?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#929ba1',
-        confirmButtonText: 'Oke'
-        }).then((result) => {
-            if (result.value) {         
-                $.ajax({
-                    url: '<?= route('objek.delete') ?>/'+id,
-                    success: function(response){
-                        if(response.success){
-                            Swal.fire({
-                                title : 'Data berhasil di hapus!',
-                                icon: 'success',
-                                text: response.message
-                            });
-                        }else{
-                            Swal.fire({
-                                title : 'Data gagal di hapus!',
-                                icon: 'error',
-                                text: response.message
-                            });
-                        }
-                    }
-                });
-                dataTable.ajax.reload();
-            }else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(
-                'Cancelled',
-                'Data tidak jadi dihapus',
-                'error'
-                )
+    function get_koneksi(){
+        var id = $('#id_koneksi').val();
+        $.ajax({
+            url: '<?= route('objek.get_koneksi') ?>/'+id,
+            success: function(response){
+                $('#form_objek #table-list tbody').html(response);
             }
         });
-        }
+    }
 
     function errormessage(errors){
         var validations = '<div class="alert alert-danger">';
