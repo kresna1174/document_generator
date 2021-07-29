@@ -27,6 +27,7 @@
         <a class="collapse-item" href="<?= route('koneksi') ?>">Koneksi</a>
         <a class="collapse-item" href="<?= route('objek') ?>">Objek</a>
         <a class="collapse-item" href="<?= route('jenis_dokumen') ?>">Jenis Dokumen</a>
+        
       </div>
     </div>
   </li>
@@ -46,6 +47,7 @@
       <i class="fas fa-fw fa-print"></i>
       <span>Cetak</span></a>
   </li>
+
 
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">

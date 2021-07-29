@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Storage;
 use App\objek_m;
 use App\koneksi_m;
 use App\jenis_dokumen_m;
@@ -15,7 +17,7 @@ class DashboardController extends Controller
     }
 
     public function get_data(){
-        return \DataTables::of(jenis_dokumen_m::_dashboard()->get())
+        return DataTables::of(jenis_dokumen_m::_dashboard()->get())
             ->make(true);
         return view('dashboard.index');
     }
@@ -28,7 +30,7 @@ class DashboardController extends Controller
     public function download($id){
         $model = jenis_dokumen_m::_dashboard()->findOrFail($id);
         if($model){
-            return response()->download(\Storage::path('public/cetak/'.$model->file));
+            return response()->download(Storage::path('public/cetak/'.$model->file));
         }
     }   
 
@@ -64,5 +66,9 @@ class DashboardController extends Controller
         $message = [];
         $message['key.required'] = 'Key harus di isi';
         return $message;
+    }
+
+    public function user(){
+        return view('dashboard');
     }
 }

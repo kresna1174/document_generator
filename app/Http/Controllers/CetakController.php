@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\jenis_dokumen_m;
 use App\cetak_m;
 use App\koneksi_m;
@@ -30,7 +32,7 @@ class CetakController extends Controller
     public function store(Request $request, $id){
         $rules = self::validation($request->all());
         $messages = self::validation_message($request->all());
-        $validator = \Validator::make($request->all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()){
             return response()->json([
                 'message' => 'error input',
@@ -40,7 +42,7 @@ class CetakController extends Controller
         $jenis_dokumen = jenis_dokumen_m::findOrFail($id);
         $objek = objek_m::findOrFail($jenis_dokumen->id_objek);
         $koneksi = koneksi_m::findOrFail($objek->id_koneksi);
-        
+
         config(['database.connections.objek' => [
             'driver'  => 'mysql',
             'host' => $koneksi->host,
@@ -49,8 +51,8 @@ class CetakController extends Controller
             'username' => $koneksi->username,
             'password' => $koneksi->password
         ]]);
-        
-        $db_objek = \DB::connection('objek');
+
+        $db_objek = DB::connection('objek');
         if ($objek->id_objek_tipe == 1) {
             $data = $db_objek->select('select * from '.$objek->nama_table. ' where '.$objek->nama_kolom.' = \''.$request->input('key').'\'');
         } else {

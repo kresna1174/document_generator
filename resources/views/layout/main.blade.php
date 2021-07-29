@@ -30,7 +30,12 @@
       </button>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown no-arrow content">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 medium"><i class="fas fa-calendar">&nbsp;</i><?= date('l, j-F-Y') ?></span>
+          <span class="mr-2 d-none d-lg-inline text-gray-600 medium"><i class="fas fa-calendar">&nbsp;</i><?= date('l, j-F-Y') ?></span>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item float-right">
+          <button type="submit" onclick="document.location.href='<?= route('logout') ?>'" class="btn btn-danger">Logout</button>
         </li>
       </ul>
     </nav>
