@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\objek_m;
 use App\koneksi_m;
 use App\jenis_dokumen_m;
+use App\User;
 
 class DashboardController extends Controller
 {
@@ -68,7 +69,5 @@ class DashboardController extends Controller
         return $message;
     }
 
-    public function user(){
-        return view('dashboard');
-    }
+    
 }

@@ -28,8 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('delete/{id?}', 'DashboardController@delete')->name('dashboard.delete');
         Route::get('view/{id?}', 'DashboardController@view')->name('dashboard.view');
         Route::get('download/{id?}', 'DashboardController@download')->name('dashboard.download');
-        Route::get('settings', 'DashboardController@user')->name('user_setting');
-        
+        Route::get('user', 'SettingController@user')->name('dashboard.user');
+        Route::post('key', 'SettingController@keygen')->name('dashboard.keygen');
+
     });
 
     Route::group(['prefix' => 'koneksi'], function(){

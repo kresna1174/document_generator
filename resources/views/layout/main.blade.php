@@ -34,8 +34,11 @@
         </li>
       </ul>
       <ul class="navbar-nav">
+        <li class="nav-item float-right mr-3">
+          <i type="submit" class="fas fa-cog fa-2x" onclick="document.location.href='<?= route('dashboard.user')?>'"></i>
+        </li>
         <li class="nav-item float-right">
-          <button type="submit" onclick="document.location.href='<?= route('logout') ?>'" class="btn btn-danger">Logout</button>
+          <i type="submit" class="fas fa-sign-out-alt fa-2x" onclick="document.location.href='<?= route('logout') ?>'"></i>
         </li>
       </ul>
     </nav>
@@ -59,6 +62,7 @@
 <!-- Bootstrap core JavaScript-->
 <script src="{!! asset('template') !!}/vendor/jquery/jquery.min.js"></script>
 <script src="{!! asset('template') !!}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{!! asset('template') !!}/js/sha256.js"></script>
 <script src="{!! asset('template') !!}/js/sb-admin-2.min.js"></script>
 <script src="{!! asset('template') !!}/bootbox/bootbox.min.js"></script>
 <script src="{!! asset('template') !!}/bootbox/bootbox.all.min.js"></script>
