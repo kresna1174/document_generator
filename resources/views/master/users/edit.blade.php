@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3><i class="fas fa-cog"></i> User Settings</h3>
+            <h3><i class="fas fa-cog"></i> Master User Settings</h3>
         </div>
         <div class="card-body">
             @if(session('error'))
@@ -20,20 +20,20 @@
                     <h3><i class="fas fa-user mr-2"></i>Profile</h3>
                 </div>
                 <div class="col-md-8">
-                    {{ Form::open(['route'=>['dashboard.name']]) }}
+                    {{ Form::open(['route'=>['users.name',$model->id]]) }}
                     @csrf
                     <div class="form-group">
                         <label>Username</label>
-                            {{ Form::text('name', auth()->user()->name, ['class' => 'form-control', 'id' => 'key']) }}
+                            {{ Form::text('name', $model->name, ['class' => 'form-control', 'id' => 'key']) }}
                         </div>
                         <button type="submit" class="btn btn-success btn-sm">Save Profile</button>
                     {{ Form::close()}}
                     <hr>
-                    {{ Form::open(['route'=>['dashboard.keygen']]) }}
+                    {{ Form::open(['route'=>['users.keygen',$model->id]]) }}
                     @csrf
                         <div class="form-group">
                             <label>Key Generator</label>
-                            {{ Form::text('key', session('data') ?? null, ['class' => 'form-control', 'id' => 'key', 'readonly']) }}
+                            {{ Form::text('key', $model->key ?? null, ['class' => 'form-control', 'id' => 'key', 'readonly']) }}
                         </div>
                         <button type="submit" class="btn btn-success btn-sm">Generate</button>
                     {{ Form::close()}}
@@ -65,7 +65,7 @@
                     <h3><i class="fas fa-lock mr-2"></i>Security</h3>
                 </div>
                 <div class="col-md-8">
-                    {{ Form::open(['route'=>['dashboard.changepassword']]) }}
+                    {{ Form::open(['route'=>['users.changepassword',$model->id]]) }}
                     @csrf
                     <div class="form-group">
                         <label>Old Password</label>

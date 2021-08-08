@@ -35,7 +35,6 @@ class AuthController extends Controller
             'password.required'     => 'Password wajib diisi',
             'password.string'       => 'Password harus berupa string'
         ];
-        $response = 'Username atau Password Salah';
 
         $validator = Validator::make($request->all(), $rules, $messages);
 

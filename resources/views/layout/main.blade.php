@@ -33,14 +33,19 @@
           <span class="mr-2 d-none d-lg-inline text-gray-600 medium"><i class="fas fa-calendar">&nbsp;</i><?= date('l, j-F-Y') ?></span>
         </li>
       </ul>
-      <ul class="navbar-nav">
-        <li class="nav-item float-right mr-3">
-          <i type="submit" class="fas fa-cog fa-2x" onclick="document.location.href='<?= route('dashboard.user')?>'"></i>
-        </li>
-        <li class="nav-item float-right">
-          <i type="submit" class="fas fa-sign-out-alt fa-2x" onclick="document.location.href='<?= route('logout') ?>'"></i>
-        </li>
-      </ul>
+      {{-- <a href="javascript:void()" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="hidden-xs">name</span> <b class="caret"></b>
+      </a> --}}
+      <div class="dropdown">
+        <a href="javascript:void()" class="nav-link text-dark mr-5 text-decoration-none mt-2 " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user fa-lg mr-2"></i><span>{{ auth()->user()->name }}</span><i class="fas fa-caret-down ml-1"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right shadow " aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="{{ route('dashboard.user') }}"><i class="fas fa-cog fa-1x mr-3" onclick="document.location.href='<?= route('dashboard.user')?>'"></i> Setting</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{  route('logout') }}"><i class="fas fa-sign-out-alt fa-1x mr-3" onclick="document.location.href='<?= route('logout') ?>'"></i>Log Out</a>
+        </div>
+      </div>
     </nav>
     <div class="container-fluid">
       <div class="d-sm-flex align-items-center mr-auto content">

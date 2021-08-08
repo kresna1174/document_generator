@@ -27,7 +27,7 @@
         <a class="collapse-item" href="<?= route('koneksi') ?>">Koneksi</a>
         <a class="collapse-item" href="<?= route('objek') ?>">Objek</a>
         <a class="collapse-item" href="<?= route('jenis_dokumen') ?>">Jenis Dokumen</a>
-        
+        <a class="collapse-item" href="<?= route('users') ?>">Users</a>
       </div>
     </div>
   </li>

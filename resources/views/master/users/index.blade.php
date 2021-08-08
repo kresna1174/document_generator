@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('title')
-    <h4>Master Objek</h4>
+    <h4>Master Users</h4>
     <button id="btn-create" type="button" onclick="create()" class="ml-1 mb-2 btn btn-success btn-sm rounded-circle"><i class="fa fa-plus-circle"></i></button>
 @endsection
 @section('content')
@@ -10,12 +10,10 @@
             <table width="100%" id="table" class="table table-bordered table-consoned table-striped">
                 <thead>
                     <tr>
-                        <th>Objek</th>
-                        <th>Koneksi</th>
-                        <th class="text-left">Objek Tipe</th>
-                        <th class="text-left">Nama Table</th>
-                        <th class="text-left">Nama Kolom</th>
-                        <th></th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th class="text-left">Key</th>
+                        <th>Action&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,29 +36,26 @@
             reponsive:true,
             jQueryUI: true,
             processing: true,
-            serverSide: true,
-            ajax: '<?= route('objek.get_data') ?>',
+            scrollX: true,
+            ajax: '<?= route('users.get_data') ?>',
             columns:[
-                {data: 'objek', name: 'objek'},
-                {data: 'judul', name: 'judul'},
-                {data: 'objek_tipe', name: 'objek_tipe'},
-                {data: 'nama_table', name: 'nama_table'},
-                {data: 'nama_kolom', name: 'nama_kolom'},
-                {data: 'id', name:'objek.id', width: '150px', searchable: false, orderable: false, class: 'text-right nowrap',mRender: function(data){
-                    return '<button id="btn-view" type="button" class="btn btn-info btn-sm" onclick="view('+data+')">view</button> \n\
-                            <button id="btn-edit" type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
+                {data: 'id', name: 'ID'},
+                {data: 'name', name: 'name'},
+                {data: 'key', name: 'key'},
+                {data: 'id', name:'id', width: '400px', searchable: false, orderable: false, class: 'nowrap',mRender: function(data){
+                    return '<button id="btn-edit" type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
                             <button type="button" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</button>';
                 }}
             ]
-      }); 
+        });
     }
-    
+
     function create(){
         $.ajax({
-            url: '<?= route('objek.create') ?>',
+            url: '<?= route('users.create') ?>',
             success: function(response){
                 bootbox.dialog({
-                    title: 'create objek',
+                    title: 'create users',
                     message: response
                 });
             }
@@ -68,25 +63,16 @@
     }
 
     function edit(id){
-        $.ajax({
-            url: '<?= route('objek.edit') ?>/'+id,
-            success: function(response){
-                bootbox.dialog({
-                    title: 'edit objek',
-                    message: response
-                });
-            get_objek_tipe();
-            get_koneksi();
-            }
-        })
+        let url = "{{ route('users.edit')}}"+"/"+id;
+        document.location.href=url;
     }
 
     function view(id){
         $.ajax({
-            url: '<?= route('objek.view') ?>/'+id,
+            url: '<?= route('users.view') ?>/'+id,
             success: function(response){
                 bootbox.dialog({
-                    title: 'view objek',
+                    title: 'view users',
                     message: response
                 });
             }
@@ -94,13 +80,13 @@
     }
 
     function store(){
-        $('#form_objek .alert').remove();
-        $('#form_objek').blockUI();
+        $('#form_users .alert').remove();
+        $('#form_users').blockUI();
         $.ajax({
-            url: '<?= route('objek.store') ?>',
+            url: '<?= route('users.store') ?>',
             dataType: 'json',
             type: 'post',
-            data: $('#form_objek').serialize(),
+            data: $('#form_users').serialize(),
             success: function(response){
                 if(response.success){
                     $.growl.notice({message: 'Store berhasil'});
@@ -112,19 +98,20 @@
             },
             error: function(xhr, ajaxOptions, thrownError){
                 var response = JSON.parse(xhr.responseText);
-                $('#form_objek').prepend(errormessage(response));
+                $('#form_users').prepend(errormessage(response));
             }
         })
-        $('#form_objek').unblock();
+        $('#form_users').unblock();
     }
 
+
     function update(id){
-        $('#form_objek .alert').remove();
+        $('#form_users .alert').remove();
         $.ajax({
-            url: '<?= route('objek.update') ?>/'+id,
+            url: '<?= route('users.update') ?>/'+id,
             dataType: 'json',
             type: 'post',
-            data: $('#form_objek').serialize(),
+            data: $('#form_users').serialize(),
             success: function(response){
                 if(response.success){
                     $.growl.notice({message: 'Update berhasil'});
@@ -136,7 +123,7 @@
             },
             error: function(xhr, ajaxOptions, thrownError){
             var response = JSON.parse(xhr.responseText);
-            $('#form_objek').prepend(errormessage(response));
+            $('#form_users').prepend(errormessage(response));
             }
         })
     }
@@ -153,7 +140,7 @@
         }).then((result) => {
             if (result.value) {         
                 $.ajax({
-                    url: '<?= route('objek.delete') ?>/'+id,
+                    url: '<?= route('users.delete') ?>/'+id,
                     success: function(response){
                         if(response.success){
 							$.growl.notice({message: 'Data berhasil dihapus!'});
@@ -167,8 +154,8 @@
         });
     }
 
-    function get_objek_tipe(){
-        var value = $('#objek_tipe').val();
+    function get_users_tipe(){
+        var value = $('#users_tipe').val();
         var nama_table = $('#nama_table').val();
         var nama_kolom = $('#nama_kolom').val();
         if (value == 1 || value == 'table') {
@@ -206,7 +193,7 @@
     }
 
     function get_value(){
-        var value = $('#objek_tipe').val();
+        var value = $('#users_tipe').val();
             if (value == 1 || value == 'table') {
                 var bungkus = $('.bungkus').children();
                     if(bungkus.length == 1){
@@ -239,16 +226,6 @@
                     html_row += '</div>';
                 $('.form .bungkus').append(html_row);
         }
-    }
-
-    function get_koneksi(){
-        var id = $('#id_koneksi').val();
-        $.ajax({
-            url: '<?= route('objek.get_koneksi') ?>/'+id,
-            success: function(response){
-                $('#form_objek #table-list tbody').html(response);
-            }
-        });
     }
 
     function errormessage(errors){

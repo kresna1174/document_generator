@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('download/{id?}', 'DashboardController@download')->name('dashboard.download');
         Route::get('user', 'SettingController@user')->name('dashboard.user');
         Route::post('key', 'SettingController@keygen')->name('dashboard.keygen');
+        Route::post('changepassword', 'SettingController@change_password')->name('dashboard.changepassword');
+        Route::post('name', 'SettingController@name')->name('dashboard.name');
 
     });
 
@@ -70,6 +72,18 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('get_koneksi/{id?}', 'Jenis_Dokumen_controller@get_koneksi')->name('jenis_dokumen.get_koneksi');
     });
 
+    Route::group(['prefix' => 'users'], function(){
+        Route::get('/', 'UsersController@index')->name('users');
+        Route::get('create', 'UsersController@create')->name('users.create');
+        Route::post('store', 'UsersController@store')->name('users.store');
+        Route::get('delete/{id?}', 'UsersController@destroy')->name('users.delete');
+        Route::get('edit/{id?}', 'UsersController@edit')->name('users.edit');
+        Route::get('get_data', 'UsersController@get_data')->name('users.get_data');
+        Route::post('key/{id?}', 'UsersController@keygen')->name('users.keygen');
+        Route::post('changepassword/{id?}', 'UsersController@change_password')->name('users.changepassword');
+        Route::post('name/{id?}', 'UsersController@name')->name('users.name');
+    });
+
     Route::group(['prefix' => 'cetak'], function(){
         Route::get('/', 'CetakController@index')->name('cetak');
         Route::get('create/{id?}', 'CetakController@create')->name('cetak.create');
@@ -77,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('get_data', 'CetakController@get_data')->name('cetak.get_data');
         Route::get('download/{id?}', 'CetakController@download')->name('cetak.download');
     });
+
 
     Route::get('logout', 'AuthController@logout')->name('logout');
 });
