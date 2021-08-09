@@ -21,17 +21,17 @@ class AuthController extends Controller
 
     public function login(Request $request){
         $data = [
-            'name'      => $request->input('name'),
+            'username'  => $request->input('username'),
             'password'  => $request->input('password'),
         ];
 
         $rules = [
-            'name'                  => 'required|string',
+            'username'              => 'required|string',
             'password'              => 'required|string'
         ];
 
         $messages = [
-            'name.required'         => 'Username wajib diisi',
+            'username.required'     => 'Username wajib diisi',
             'password.required'     => 'Password wajib diisi',
             'password.string'       => 'Password harus berupa string'
         ];

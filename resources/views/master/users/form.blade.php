@@ -1,6 +1,10 @@
 <div class="form">
     @csrf
     <div class="form-group">
+        <label>Username</label>
+        {!! Form::text('username', null, ['class' => 'form-control', 'id' => 'username']) !!}
+    </div>
+    <div class="form-group">
         <label>Nama</label>
         {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) !!}
     </div>

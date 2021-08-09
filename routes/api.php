@@ -17,4 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('key/{id?}', 'SettingController@api_keygen');
-Route::get('users', 'SettingController@get_data');
+Route::get('users', 'UsersController@get_api');

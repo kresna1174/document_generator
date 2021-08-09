@@ -34,7 +34,7 @@
                                 @endif
                                 <div class="form-floating mb-3">
                                     <label for="Username">Username</label>
-                                    <input type="text" class="form-control" id="Username" name="name" placeholder="Username">
+                                    <input type="text" class="form-control" id="Username" name="username" placeholder="Username">
                                 </div>
                                 <div class="form-floating mb-3">
                                     <label for="Password">Password</label>

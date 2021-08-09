@@ -23,8 +23,8 @@
                     {{ Form::open(['route'=>['dashboard.name']]) }}
                     @csrf
                     <div class="form-group">
-                        <label>Username</label>
-                            {{ Form::text('name', auth()->user()->name, ['class' => 'form-control', 'id' => 'key']) }}
+                        <label>Name</label>
+                            {{ Form::text('name', auth()->user()->name, ['class' => 'form-control', 'id' => 'name']) }}
                         </div>
                         <button type="submit" class="btn btn-success btn-sm">Save Profile</button>
                     {{ Form::close()}}

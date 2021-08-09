@@ -28,6 +28,13 @@ class UsersController extends Controller
         return view('master.users.get', compact('model'));
     }
 
+    public function get_api(){
+        $model = User::all();
+        return response()->json([
+            'model' => $model
+        ]);
+    }
+
     public function create(){
         return view('master.users.create');
     }
@@ -45,12 +52,15 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $rules = [
+            'username'              => 'required|min:3',
             'name'                  => 'required|min:3',
             'password'              => 'required',
             'confirm'               => 'required|same:password'
         ];
 
         $messages = [
+            'username.required'     => 'Username harus diisi',
+            'username.min'          => 'Username minimal 3 karakter',
             'name.required'         => 'Nama harus diisi',
             'name.min'              => 'Nama minimal 3 karakter',
             'password.required'     => 'Password harus diisi',
@@ -68,6 +78,7 @@ class UsersController extends Controller
         }
 
         $users = new User;
+        $users->username = ($request->username);
         $users->name = ($request->name);
         $users->password = Hash::make($request->password);
         $simpan = $users->save();
@@ -91,9 +102,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function reset($id){
+        $model = User::findOrFail($id);
+        return view('master.users.reset', compact('model'));
     }
 
     /**
@@ -127,37 +138,35 @@ class UsersController extends Controller
     public function change_password(Request $request,$id){
         $model = User::findOrFail($id);
         $rules = [
-            'oldpassword'           => 'required',
-            'newpassword'           => 'required',
-            'confirmed'             => 'required|same:newpassword'
+            'password'              => 'required',
+            'confirmed'             => 'required|same:password'
         ];
         $mesagges = [
-            'oldpassword.required'        => 'Password Lama Harus Diisi',
-            'newpassword.required'        => 'Password Baru Harus Diisi',
+            'password.required'           => 'Password Baru Harus Diisi',
             'confirmed.required'          => 'Konfirmasi Password Harus Diisi',
             'confirmed.same'              => 'Password Tidak Sama Dengan Konfirmasi Password'
         ];
 
         $validator = Validator::make($request->all(), $rules, $mesagges);
         if($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput($request->all);
+            return response()->json([
+                'message'   => 'Gagal Mengganti Password',
+                'errors'    => $validator->errors()
+            ], 400);
         }
-
-        $hashedPassword = $model->password;
-        if (Hash::check($request->oldpassword , $hashedPassword)) {
-                $users = User::find($model->id);
-                $users->update(['password' => bcrypt($request->newpassword)]);
-            if($users){
-                return redirect()->back()->with('new','Berhasil Mengganti Password');
-            }
-            else{
-                Session::flash('errors');
-                return redirect()->back();
-            }
+        $users = User::find($model->id);
+        $users->update(['password' => bcrypt($request->newpassword)]);
+        if($users){
+            return[
+                'success' => true,
+                'message' => 'Data Berhasil Di Update'
+            ];
         }
         else{
-            Session::flash('errors');
-            return redirect()->back();
+            return [
+                'success' => false,
+                'message' => 'Data Gagal Di Tambahkan'
+            ];
         }
     }
 
@@ -168,13 +177,24 @@ class UsersController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
-            return redirect()->back()->with('error', 'Nama minimal 3 karakter');
+            return response()->json([
+                'message'   => 'Gagal Mengganti Password',
+                'errors'    => $validator->errors()
+            ], 400);
         }
 
         $data -> update(['name' => $request->name]);
         if($data){
-            return redirect()->back()->with('success', 'Berhasil Mengubah Nama');
+            return[
+                'success' => true,
+                'message' => 'Data Berhasil Di Update'
+            ];
         }
+    }
+
+    public function view($id){
+        $model = User::findOrFail($id);
+        return view('master.users.view', compact('model'));
     }
 
     public function destroy($id)

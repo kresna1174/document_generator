@@ -79,9 +79,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('delete/{id?}', 'UsersController@destroy')->name('users.delete');
         Route::get('edit/{id?}', 'UsersController@edit')->name('users.edit');
         Route::get('get_data', 'UsersController@get_data')->name('users.get_data');
-        Route::post('key/{id?}', 'UsersController@keygen')->name('users.keygen');
-        Route::post('changepassword/{id?}', 'UsersController@change_password')->name('users.changepassword');
+        Route::get('view/{id?}', 'UsersController@view')->name('users.view');
         Route::post('name/{id?}', 'UsersController@name')->name('users.name');
+        Route::get('reset/{id?}', 'UsersController@reset')->name('users.resetPassword');
+        Route::post('changepassword/{id?}', 'UsersController@change_password')->name('users.changepassword');
     });
 
     Route::group(['prefix' => 'cetak'], function(){

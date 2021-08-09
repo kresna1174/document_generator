@@ -11,9 +11,9 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Username</th>
                         <th>Name</th>
-                        <th class="text-left">Key</th>
-                        <th>Action&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+                        <th style="width: 270px"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,11 +40,13 @@
             ajax: '<?= route('users.get_data') ?>',
             columns:[
                 {data: 'id', name: 'ID'},
+                {data: 'username', name: 'username'},
                 {data: 'name', name: 'name'},
-                {data: 'key', name: 'key'},
-                {data: 'id', name:'id', width: '400px', searchable: false, orderable: false, class: 'nowrap',mRender: function(data){
-                    return '<button id="btn-edit" type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">edit</button>\n\
-                            <button type="button" class="btn btn-danger btn-sm" onclick="destroy('+data+')">delete</button>';
+                {data: 'id', name:'users.id', searchable: false, orderable: false, class: 'text-center nowrap',mRender: function(data){
+                    return '<button id="btn-view" type="button" class="btn btn-info btn-sm" onclick="view('+data+')">View</button>\n\
+                            <button id="btn-edit" type="button" class="btn btn-warning btn-sm" onclick="edit('+data+')">Edit</button>\n\
+                            <button id="btn-reset" type="button" class="btn btn-primary btn-sm" onclick="resetPassword('+data+')">Reset Password</button>\n\
+                            <button type="button" class="btn btn-danger btn-sm" onclick="destroy('+data+')">Delete</button>';
                 }}
             ]
         });
@@ -63,8 +65,52 @@
     }
 
     function edit(id){
-        let url = "{{ route('users.edit')}}"+"/"+id;
-        document.location.href=url;
+        $.ajax({
+            url: '<?= route('users.edit') ?>/'+id,
+            success: function(response){
+                bootbox.dialog({
+                    title: 'edit users',
+                    message: response
+                });
+            get_objek_tipe();
+            get_koneksi();
+            }
+        })
+    }
+
+    function view(id){
+        $.ajax({
+            url: '<?= route('users.view') ?>/'+id,
+            success: function(response){
+                bootbox.dialog({
+                    title: 'view user',
+                    message: response
+                });
+            }
+        })
+    }
+
+    function update(id){
+        $('#form_users .alert').remove();
+        $.ajax({
+            url: '<?= route('users.name') ?>/'+id,
+            dataType: 'json',
+            type: 'post',
+            data: $('#form_users').serialize(),
+            success: function(response){
+                if(response.success){
+                    $.growl.notice({message: 'Update berhasil'});
+                }else{
+                    $.growl.error({message: 'Update gagal'});
+                }
+                bootbox.hideAll();
+                dataTable.ajax.reload();
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+            var response = JSON.parse(xhr.responseText);
+            $('#form_users').prepend(errormessage(response));
+            }
+        })
     }
 
     function store(){
@@ -140,7 +186,7 @@
         cancelButtonColor: '#929ba1',
         confirmButtonText: 'Oke'
         }).then((result) => {
-            if (result.value) {         
+            if (result.value){
                 $.ajax({
                     url: '<?= route('users.delete') ?>/'+id,
                     success: function(response){
@@ -190,6 +236,43 @@
                     html_row += '</div>';
                 $('.form .bungkus').append(html_row);
         }
+    }
+
+    function resetPassword(id){
+        $.ajax({
+            url: '<?= route('users.resetPassword') ?>/'+id,
+            success: function(response){
+                bootbox.dialog({
+                    title: 'reset password',
+                    message: response
+                });
+            }
+        })
+    }
+
+    function storePassword(id){
+        $('#form_reset .alert').remove();
+        $('#form_reset').blockUI();
+        $.ajax({
+            url: '<?= route('users.changepassword') ?>/'+id,
+            dataType: 'json',
+            type: 'post',
+            data: $('#form_reset').serialize(),
+            success: function(response){
+                if(response.success){
+                    $.growl.notice({message: 'Berhasil Ganti Password'});
+                }else{
+                    $.growl.error({message: 'Gagal Mengganti Password'});
+                }
+                bootbox.hideAll();
+                dataTable.ajax.reload();
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                var response = JSON.parse(xhr.responseText);
+                $('#form_reset').prepend(errormessage(response));
+            }
+        })
+        $('#form_reset').unblock();
     }
 
     function errormessage(errors){
