@@ -130,6 +130,32 @@
         }
     }
 
+    function destroy(id){
+        Swal.fire({
+        title: 'Delete',
+        text: 'Apakah anda yakin akan menghapus data ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#929ba1',
+        confirmButtonText: 'Oke'
+        }).then((result) => {
+            if (result.value) {         
+                $.ajax({
+                    url: '<?= route('users.delete') ?>/'+id,
+                    success: function(response){
+                        if(response.success){
+							$.growl.notice({message: 'Data berhasil dihapus!'});
+                            dataTable.ajax.reload();
+						}else{
+							$.growl.error({message: 'Data gagal dihapus!'});
+						}
+                    }
+                });
+            }
+        });
+    }
+
     function get_value(){
         var value = $('#users_tipe').val();
             if (value == 1 || value == 'table') {
