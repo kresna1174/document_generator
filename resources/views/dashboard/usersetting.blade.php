@@ -33,7 +33,7 @@
                     @csrf
                         <div class="form-group">
                             <label>Key Generator</label>
-                            {{ Form::text('key', session('data') ?? null, ['class' => 'form-control', 'id' => 'key', 'readonly']) }}
+                            {{ Form::text('key', session('data') ?? auth()->user()->key, ['class' => 'form-control', 'id' => 'key', 'readonly']) }}
                         </div>
                         <button type="submit" class="btn btn-success btn-sm">Generate</button>
                     {{ Form::close()}}

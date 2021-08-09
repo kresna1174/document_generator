@@ -67,18 +67,6 @@
         document.location.href=url;
     }
 
-    function view(id){
-        $.ajax({
-            url: '<?= route('users.view') ?>/'+id,
-            success: function(response){
-                bootbox.dialog({
-                    title: 'view users',
-                    message: response
-                });
-            }
-        })
-    }
-
     function store(){
         $('#form_users .alert').remove();
         $('#form_users').blockUI();
@@ -102,56 +90,6 @@
             }
         })
         $('#form_users').unblock();
-    }
-
-
-    function update(id){
-        $('#form_users .alert').remove();
-        $.ajax({
-            url: '<?= route('users.update') ?>/'+id,
-            dataType: 'json',
-            type: 'post',
-            data: $('#form_users').serialize(),
-            success: function(response){
-                if(response.success){
-                    $.growl.notice({message: 'Update berhasil'});
-                }else{
-                    $.growl.error({message: 'Update gagal'});
-                }
-                bootbox.hideAll();
-                dataTable.ajax.reload();
-            },
-            error: function(xhr, ajaxOptions, thrownError){
-            var response = JSON.parse(xhr.responseText);
-            $('#form_users').prepend(errormessage(response));
-            }
-        })
-    }
-
-    function destroy(id){
-        Swal.fire({
-        title: 'Delete',
-        text: 'Apakah anda yakin akan menghapus data ini?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#929ba1',
-        confirmButtonText: 'Oke'
-        }).then((result) => {
-            if (result.value) {         
-                $.ajax({
-                    url: '<?= route('users.delete') ?>/'+id,
-                    success: function(response){
-                        if(response.success){
-							$.growl.notice({message: 'Data berhasil dihapus!'});
-                            dataTable.ajax.reload();
-						}else{
-							$.growl.error({message: 'Data gagal dihapus!'});
-						}
-                    }
-                });
-            }
-        });
     }
 
     function get_users_tipe(){
