@@ -23,11 +23,6 @@ class UsersController extends Controller
         return view('master.users.index', compact('title'));
     }
 
-    public function get(){
-        $model = User::all();
-        return view('master.users.get', compact('model'));
-    }
-
     public function get_api(){
         $model = User::all();
         return response()->json([
