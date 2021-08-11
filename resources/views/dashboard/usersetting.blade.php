@@ -43,19 +43,25 @@
             <hr>
             <br>
             @if(session('errors'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Gagal Mengganti Password :
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-                </ul>
-            </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Gagal Mengganti Password :
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                    </ul>
+                </div>
             @endif
-            @if(session('new'))
+            @if (session('old'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Gagal Mengganti Password :
+                    {{ session('old') }}
+                </div>
+            @endif
+            @if (session('new'))
                 <div class="alert alert-success">
                     {{ session('new') }}
                 </div>

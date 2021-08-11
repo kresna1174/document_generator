@@ -50,21 +50,23 @@ class SettingController extends Controller
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
-
-        $hashedPassword = auth()->user()->password;
-        if (Hash::check($request->oldpassword , $hashedPassword)) {
+        if (Hash::check($request->oldpassword ,  auth()->user()->password )) {
+            if (!Hash::check($request->newpassword , auth()->user()->password)) {
                 $users = User::find(auth()->user()->id);
                 $users->update(['password' => bcrypt($request->newpassword)]);
-            if($users){
-                return redirect()->back()->with('new','Berhasil Mengganti Password');
-            }
-            else{
-                Session::flash('errors');
+                if($users){
+                    return redirect()->back()->with('new', 'Berhasil Mengganti Password');
+                }
+                else{
+                    Session::flash('errors');
+                    return redirect()->back();
+                }
+            }else{
+                session()->flash('old','Password Harus Baru');
                 return redirect()->back();
             }
-        }
-        else{
-            Session::flash('errors');
+        }else{
+            session()->flash('old','Password Lama Salah');
             return redirect()->back();
         }
     }
