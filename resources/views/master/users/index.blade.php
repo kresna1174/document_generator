@@ -262,7 +262,7 @@
                 if(response.success){
                     $.growl.notice({message: 'Berhasil Ganti Password'});
                 }else{
-                    $.growl.error({message: 'Gagal Mengganti Password'});
+                    $.growl.error({message: 'Password Harus Baru'});
                 }
                 bootbox.hideAll();
                 dataTable.ajax.reload();

@@ -149,6 +149,13 @@ class UsersController extends Controller
                 'errors'    => $validator->errors()
             ], 400);
         }
+        $hashedValue= $model->password;
+        if(Hash::check($request->password, $hashedValue)){
+            return [
+                'success' => false,
+                'message' => "Password Harus Baru"
+            ];
+        }
         $users = User::find($model->id);
         $users->update(['password' => bcrypt($request->newpassword)]);
         if($users){
