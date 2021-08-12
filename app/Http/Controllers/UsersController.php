@@ -157,7 +157,7 @@ class UsersController extends Controller
             ];
         }
         $users = User::find($model->id);
-        $users->update(['password' => bcrypt($request->newpassword)]);
+        $users->update(['password' => bcrypt($request->password)]);
         if($users){
             return[
                 'success' => true,

@@ -1,4 +1,4 @@
-{!! Form::model($model, ['id' => 'form_objek']) !!}
+{!! Form::model($model, ['id' => 'form_users']) !!}
 <table width="100%">
     <tr>
         <th>Username</th>
