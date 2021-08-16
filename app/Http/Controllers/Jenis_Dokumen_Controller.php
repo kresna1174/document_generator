@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 date_default_timezone_set("Asia/Jakarta");
 
 use Illuminate\Http\Request;
-use App\Datatables;
+use DataTables;
 use App\jenis_dokumen_m;
 use App\objek_m;
 use App\koneksi_m;

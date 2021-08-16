@@ -20,7 +20,7 @@ class Objek extends Migration
             $table->integer('id_objek_tipe')->length(11)->unsigned();
             $table->string('nama_table', 64)->nullable();
             $table->string('nama_kolom', 64)->nullable();
-            $table->string('query', 64)->nullable();
+            $table->longText('query')->nullable();
         });
     }
 

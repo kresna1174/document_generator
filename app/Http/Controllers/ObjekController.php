@@ -16,15 +16,11 @@ class ObjekController extends Controller
         $title = 'Master Objek';
         return view('master.objek.index', compact('title'));
     }
-    
+
     public function get_data(){
         return Datatables::of(objek_m::orderBy('id', 'DESC')->_koneksi()->get())
         ->make(true);
         return view('master.objek.index');
-    }
-
-    public function get_data_all(){
-        
     }
 
     public function get_koneksi($id){
@@ -42,7 +38,7 @@ class ObjekController extends Controller
         $koneksi_db = 'Tables_in_'.$koneksi->nama_db;
         return view('master.objek.get_koneksi', compact('get_table', 'koneksi_db', 'db_objek'));
     }
-    
+
     public function create(){
         $model = objek_m::_koneksi()->get();
         $nama_db = koneksi_m::pluck('judul', 'id');
@@ -63,7 +59,6 @@ class ObjekController extends Controller
     }
 
     public function store(Request $request){
-       
         $rules = self::validasi($request->all());
         $messages = self::validasi_message($request->all());
         $validator = Validator::make($request->all(), $rules, $messages);

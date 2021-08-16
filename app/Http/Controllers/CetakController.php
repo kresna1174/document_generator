@@ -60,7 +60,7 @@ class CetakController extends Controller
             $query = str_replace('${key}', $request->input('key'), $query);
             $data = $db_objek->select($query);
         }
-        
+
         $template = new \PhpOffice\PhpWord\TemplateProcessor(Storage::path('public/dokumen/'.$jenis_dokumen->file));
         $vars = $template->getVariables();
         foreach ($vars as $var) {
