@@ -60,50 +60,56 @@ class CetakController extends Controller
             $query = str_replace('${key}', $request->input('key'), $query);
             $data = $db_objek->select($query);
         }
-
-        $template = new \PhpOffice\PhpWord\TemplateProcessor(Storage::path('public/dokumen/'.$jenis_dokumen->file));
-        $vars = $template->getVariables();
-        foreach ($vars as $var) {
-            $value = '';
-            $parse = explode('.', $var);
-            if (isset($parse[1])) {
-                if (isset($data[$parse[1]]->{$parse[0]})) {
-                    $value = $data[$parse[1]]->{$parse[0]};
+        if ($data) {
+            $template = new \PhpOffice\PhpWord\TemplateProcessor(Storage::path('public/dokumen/'.$jenis_dokumen->file));
+            $vars = $template->getVariables();
+            foreach ($vars as $var) {
+                $value = '';
+                $parse = explode('.', $var);
+                if (isset($parse[1])) {
+                    if (isset($data[$parse[1]]->{$parse[0]})) {
+                        $value = $data[$parse[1]]->{$parse[0]};
+                    }
+                } else {
+                    if (isset($data[0]->{$parse[0]})) {
+                        $value = $data[0]->{$parse[0]};
+                    }
                 }
-            } else {
-                if (isset($data[0]->{$parse[0]})) {
-                    $value = $data[0]->{$parse[0]};
+                $template->setValues([$var => $value]);
+            }
+            if (isset($data[0])) {
+                $template->setValues((array) $data[0]);
+            }
+            if (count($data)) {
+                foreach ($data as $i => $row) {
+                    foreach ($row as $key => $val) {
+                        $template->setValues([$key.'.'.$i => $val]);
+                    }
                 }
             }
-            $template->setValues([$var => $value]);
-        }
-        if (isset($data[0])) {
-            $template->setValues((array) $data[0]);
-        }
-        if (count($data)) {
-            foreach ($data as $i => $row) {
-                foreach ($row as $key => $val) {
-                    $template->setValues([$key.'.'.$i => $val]);
+            $file_upload = $template->saveAs(Storage::path('public/cetak/'.$jenis_dokumen->file));
+            $isi = [
+                'file_cetak' => $jenis_dokumen->file,
+                'input_key' => $request->key
+            ];
+                if (cetak_m::create($isi)){
+                    return [
+                        'success' => true,
+                        'message' => 'Key benar'
+                    ];
+                    download();
+                } else {
+                    return [
+                        'success' => false,
+                        'message' => 'Key salah'
+                    ];
                 }
-            }
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Key salah'
+            ]);
         }
-        $file_upload = $template->saveAs(Storage::path('public/cetak/'.$jenis_dokumen->file));
-        $isi = [
-            'file_cetak' => $jenis_dokumen->file,
-            'input_key' => $request->key
-        ];
-            if(cetak_m::create($isi)){
-                return [
-                    'success' => true,
-                    'message' => 'Key benar'
-                ];
-                download();
-            }else{
-                return [
-                    'success' => false,
-                    'message' => 'Key salah'
-                ];
-            }
     }
 
     public function download($id){

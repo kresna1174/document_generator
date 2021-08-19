@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Validator;
 class SettingController extends Controller
 {
     public function user(){
-        return view('dashboard.usersetting');
+        $title = 'User Settings';
+        return view('dashboard.usersetting', compact('title'));
     }
 
     public function keygen(){

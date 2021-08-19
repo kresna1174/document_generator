@@ -59,7 +59,7 @@
                     get();
                 }else{
                     Swal.fire({
-                        title: 'Store gagal',
+                        title: response.message,
                         icon: 'error',
                     });
                 }
