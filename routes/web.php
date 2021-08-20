@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'cetak'], function(){
         Route::get('/', 'CetakController@index')->name('cetak');
         Route::get('create/{id?}', 'CetakController@create')->name('cetak.create');
-        Route::post('store/{id?}', 'CetakController@store')->name('cetak.store');
+        Route::get('store/{id?}', 'CetakController@store')->name('cetak.store');
         Route::get('get_data', 'CetakController@get_data')->name('cetak.get_data');
         Route::get('download/{id?}', 'CetakController@download')->name('cetak.download');
     });

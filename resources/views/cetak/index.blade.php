@@ -45,7 +45,7 @@
         $.ajax({
             url: '<?= route('cetak.store') ?>/'+id,
             dataType: 'json',
-            type: 'post',
+            type: 'get',
             data: $('#form_cetak').serialize(),
             success: function(response){
                 if(response.success){

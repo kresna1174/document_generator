@@ -17,4 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('key/{id?}', 'SettingController@api_keygen');
-Route::get('users', 'UsersController@get_api');
+Route::get('users/{id?}', 'UsersController@get_api');
+Route::get('store', 'CetakController@store_api')->name('store-dokumen');

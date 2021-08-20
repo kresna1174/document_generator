@@ -23,11 +23,19 @@ class UsersController extends Controller
         return view('master.users.index', compact('title'));
     }
 
-    public function get_api(){
-        $model = User::all();
-        return response()->json([
-            'model' => $model
-        ]);
+    public function get_api($id){
+        $model = User::findOrFail($id);
+        if($model) {
+            return response()->json([
+                'success' => true,
+                'message' => $model
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User Tidak Di Temukan'
+            ]);
+        }
     }
 
     public function create(){
